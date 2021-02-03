@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.FragmentHomeBinding
-
 
 class HomeFragment : Fragment() {
 
@@ -24,7 +22,7 @@ class HomeFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        // Inflate the layout for this fragment
+
         return binding.root
     }
 
