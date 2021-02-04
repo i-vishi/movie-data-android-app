@@ -1,6 +1,7 @@
 package com.example.moviedataapp.network
 
 import com.example.moviedataapp.BuildConfig
+import com.example.moviedataapp.R
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
@@ -42,5 +43,17 @@ interface IMDbApiService {
 object IMDbApi {
 	val retrofitService: IMDbApiService by lazy {
 		retrofit.create(IMDbApiService::class.java)
+	}
+}
+
+
+// all topics to be shown on Home
+class TopicsData {
+	fun loadTopics() : List<Topic> {
+		return listOf(
+				Topic(R.string.trending, R.string.apiTrending),
+				Topic(R.string.topRated, R.string.apiTopRated),
+				Topic(R.string.comingSoon, R.string.apiComingSoon),
+		)
 	}
 }
