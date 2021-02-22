@@ -10,24 +10,33 @@ import com.example.moviedataapp.R
 import com.example.moviedataapp.network.Topic
 
 class HomeAdapter(
-		private val context: Context,
-		private val dataset: List<Topic>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+	private val context: Context,
+	private val dataset: List<Topic>,
+	val onClickListener: OnClickListener
+) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-	class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-		val title: TextView = view.findViewById(R.id.topicTitle)
-	}
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val title: TextView = view.findViewById(R.id.topicTitle)
+    }
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-		val adapterLayout = LayoutInflater.from(parent.context)
-				.inflate(R.layout.list_item, parent, false)
+    class OnClickListener(val clickListener: (apiText: String) -> Unit) {
+        fun onClick(apiText: String) = clickListener(apiText)
+    }
 
-		return ViewHolder(adapterLayout)
-	}
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val adapterLayout = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_item, parent, false)
 
-	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val item = dataset[position]
-		holder.title.text = context.resources.getString(item.title)
-	}
+        return ViewHolder(adapterLayout)
+    }
 
-	override fun getItemCount() = dataset.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = dataset[position]
+        holder.title.text = context.resources.getString(item.title)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(context.resources.getString(item.apiString))
+        }
+    }
+
+    override fun getItemCount() = dataset.size
 }

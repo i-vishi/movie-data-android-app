@@ -9,6 +9,23 @@
         android:id="@+id/homeFragment"
         android:name="com.example.moviedataapp.home.HomeFragment"
         android:label="fragment_overview"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_moviesFragment"
+            app:destination="@id/moviesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.example.moviedataapp.movies.MoviesFragment"
+        android:label="fragment_movies"
+        tools:layout="@layout/fragment_movies">
+        <argument
+            android:name="selectedTopicAPI"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_moviesFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
 
 </navigation>

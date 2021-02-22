@@ -9,4 +9,5 @@
     <string name="apiTopRated">get-top-rated-movies</string>
 
     <string name="topicTitle"><![CDATA[THIS IS TOPIC TITLE]]></string>
+    <string name="previous">Previos</string>
 </resources>
