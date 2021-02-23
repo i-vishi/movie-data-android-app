@@ -10,9 +10,6 @@ import com.example.moviedataapp.network.Movie
 import com.example.moviedataapp.network.MovieDetail
 import kotlinx.coroutines.launch
 import okhttp3.internal.trimSubstring
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.Exception
 
 enum class IMDbApiStatus { LOADING, ERROR, DONE }
@@ -28,14 +25,14 @@ class MoviesViewModel : ViewModel() {
     val response: LiveData<List<String>>
         get() = _response
 
-    private val _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<Movie>> get() = _movies
+    private val _movies = MutableLiveData<List<MovieDetail>>()
+    val movies: LiveData<List<MovieDetail>> get() = _movies
+//
+//    private val _moviesList = MutableLiveData<List<MovieDetail>>()
+//    val moviesList: LiveData<List<MovieDetail>> get() = _moviesList
 
-    private val _moviesList = MutableLiveData<List<MovieDetail>>()
-    val moviesList: LiveData<List<MovieDetail>> get() = _moviesList
-
-    private val _navigateToSelectedMovie = MutableLiveData<Movie>()
-    val navigateToSelectedMovie: LiveData<Movie> get() = _navigateToSelectedMovie
+    private val _navigateToSelectedMovie = MutableLiveData<MovieDetail>()
+    val navigateToSelectedMovie: LiveData<MovieDetail> get() = _navigateToSelectedMovie
 
     init {
         getMovies()
@@ -48,48 +45,36 @@ class MoviesViewModel : ViewModel() {
                 val res = IMDbApi.retrofitService.getTrendingMovies()
                 _response.value = IMDbApi.retrofitService.getTrendingMovies()
 
-
                 // add response to movies
-//                val movieList = mutableListOf<MovieDetail>()
-
-                val moviess = mutableListOf<Movie>()
-
-                var i = 0
-                res.subList(0, 5)
-                for (item in res) {
+                val movieList = mutableListOf<MovieDetail>()
+                val res2 = res.subList(0, 10)
+                for (item in res2) {
                     val tconst = item.trimSubstring(7, item.length - 1)
-//                    val movieDetail = IMDbApi.retrofitService.getMovieDetails(tconst)
+                    val movieDetail = IMDbApi.retrofitService.getMovieDetails(tconst)
+                    movieList.add(movieDetail)
+                    _movies.value = movieList
 
-                    val m = Movie(i, item)
-                    moviess.add(m)
-
-//                    movieList.add(movieDetail)
-                    i += 1
+                    Log.d(TAG, movieDetail.toString())
                 }
-
-//                _moviesList.value = movieList
-
-                _movies.value = moviess
-
-
                 _status.value = IMDbApiStatus.DONE
                 Log.d(TAG, status.value.toString())
             } catch (e: Exception) {
                 _status.value = IMDbApiStatus.ERROR
                 _response.value = ArrayList()
-                Log.d(TAG, status.value.toString()+ " ${e.message}")
+                _movies.value = ArrayList()
+                Log.d(TAG, status.value.toString() + " ${e.message}")
 
             }
         }
     }
 
-    fun displayMovieDetails(movie: Movie) {
+    fun displayMovieDetails(movie: MovieDetail) {
         _navigateToSelectedMovie.value = movie
     }
 
-    fun displayMovieDetailsComplete() {
-        _navigateToSelectedMovie.value = null
-    }
+//    fun displayMovieDetailsComplete() {
+//        _navigateToSelectedMovie.value = null
+//    }
 
 //	private fun getAllMoviesDetails(responseList: List<String>) {
 //		viewModelScope.launch {

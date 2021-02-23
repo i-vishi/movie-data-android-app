@@ -7,34 +7,35 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedataapp.databinding.GridViewItemBinding
 import com.example.moviedataapp.network.Movie
+import com.example.moviedataapp.network.MovieDetail
 import kotlinx.android.synthetic.main.grid_view_item.view.*
 
 //
 class PhotoGridAdapter(val onClickListener: OnClickListener) :
-    ListAdapter<Movie, PhotoGridAdapter.MovieViewHolder>(DiffCallback) {
+    ListAdapter<MovieDetail, PhotoGridAdapter.MovieViewHolder>(DiffCallback) {
 
     class MovieViewHolder(private var binding: GridViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieData: Movie) {
+        fun bind(movieData: MovieDetail) {
             binding.movie = movieData
             binding.executePendingBindings()
         }
     }
 
-    class OnClickListener(val clickListener: (movieData: Movie) -> Unit) {
-        fun onClick(movieData: Movie) = clickListener(movieData)
+    class OnClickListener(val clickListener: (movieData: MovieDetail) -> Unit) {
+        fun onClick(movieData: MovieDetail) = clickListener(movieData)
     }
 
     /**
      * Allows the RecyclerView to determine which items have changed when the [List] of [Movie]
      * has been updated.
      */
-    companion object DiffCallback : DiffUtil.ItemCallback<Movie>() {
-        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<MovieDetail>() {
+        override fun areItemsTheSame(oldItem: MovieDetail, newItem: MovieDetail): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        override fun areContentsTheSame(oldItem: MovieDetail, newItem: MovieDetail): Boolean {
             return oldItem.id == newItem.id
         }
     }
@@ -48,7 +49,6 @@ class PhotoGridAdapter(val onClickListener: OnClickListener) :
         holder.itemView.setOnClickListener {
             onClickListener.onClick(movieData)
         }
-        holder.itemView.test_text.text = movieData.title
         holder.bind(movieData)
     }
 
