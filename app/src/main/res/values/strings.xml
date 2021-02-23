@@ -11,4 +11,7 @@
     <string name="topicTitle"><![CDATA[THIS IS TOPIC TITLE]]></string>
     <string name="previous">Previos</string>
     <string name="some_random_text">Some Random Text</string>
+    <string name="text_loading_text">Getting Data...</string>
+    <string name="movie_image_description">Movie Image</string>
+    <string name="error_placeholder_image">error placeholder image</string>
 </resources>

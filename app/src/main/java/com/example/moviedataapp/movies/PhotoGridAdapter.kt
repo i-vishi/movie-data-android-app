@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedataapp.databinding.GridViewItemBinding
-import com.example.moviedataapp.network.Movie
 import com.example.moviedataapp.network.MovieDetail
-import kotlinx.android.synthetic.main.grid_view_item.view.*
 
 //
 class PhotoGridAdapter(val onClickListener: OnClickListener) :
@@ -36,7 +34,7 @@ class PhotoGridAdapter(val onClickListener: OnClickListener) :
         }
 
         override fun areContentsTheSame(oldItem: MovieDetail, newItem: MovieDetail): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.title == newItem.title
         }
     }
 

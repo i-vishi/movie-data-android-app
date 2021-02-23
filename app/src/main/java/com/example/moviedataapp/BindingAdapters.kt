@@ -2,17 +2,15 @@ package com.example.moviedataapp
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.moviedataapp.home.HomeAdapter
 import com.example.moviedataapp.movies.IMDbApiStatus
 import com.example.moviedataapp.movies.PhotoGridAdapter
-import com.example.moviedataapp.network.Movie
 import com.example.moviedataapp.network.MovieDetail
-import com.example.moviedataapp.network.Topic
 
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<MovieDetail>?) {
@@ -53,6 +51,21 @@ fun bindStatus(statusImageView: ImageView, status: IMDbApiStatus?) {
 		}
 		IMDbApiStatus.DONE -> {
 			statusImageView.visibility = View.GONE
+		}
+	}
+}
+
+@BindingAdapter("imdbGettingData")
+fun bindGettingStatus(statusTextView: TextView, status: IMDbApiStatus?) {
+	when (status) {
+		IMDbApiStatus.LOADING -> {
+			statusTextView.visibility = View.VISIBLE
+		}
+		IMDbApiStatus.ERROR -> {
+			statusTextView.visibility = View.GONE
+		}
+		IMDbApiStatus.DONE -> {
+			statusTextView.visibility = View.GONE
 		}
 	}
 }

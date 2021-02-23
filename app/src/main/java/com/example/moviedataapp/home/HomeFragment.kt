@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moviedataapp.R
@@ -20,7 +18,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: FragmentHomeBinding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_home, container, false)
         val dataSource = TopicsData()
@@ -38,7 +36,7 @@ class HomeFragment : Fragment() {
 
         binding.topicList.adapter = adapter
 
-        homeViewModel.navigateToSelectedTopic.observe(this, Observer {
+        homeViewModel.navigateToSelectedTopic.observe(viewLifecycleOwner, {
             if (null != it) {
                 this.findNavController()
                     .navigate(HomeFragmentDirections.actionHomeFragmentToMoviesFragment(it))
