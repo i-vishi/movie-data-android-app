@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.moviedataapp.databinding.FragmentMoviesBinding
 
 class MoviesFragment : Fragment() {
@@ -35,11 +36,12 @@ class MoviesFragment : Fragment() {
             viewModel.displayMovieDetails(it)
         })
 
-//        viewModel.navigateToSelectedMovie.observe(this, Observer {
-//            if(null != it) {
-//                this.findNavController().navigate(M)
-//            }
-//        })
+        viewModel.navigateToSelectedMovie.observe(viewLifecycleOwner, {
+            if(null != it) {
+                this.findNavController().navigate(MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(it))
+                viewModel.displayMovieDetailsComplete()
+            }
+        })
 
         return binding.root
     }

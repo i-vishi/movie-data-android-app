@@ -7,26 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.moviedataapp.R
+import com.example.moviedataapp.databinding.MovieDetailFragmentBinding
 
 class MovieDetailFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MovieDetailFragment()
-    }
-
-    private lateinit var viewModel: MovieDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.movie_detail_fragment, container, false)
-    }
+    ): View {
+        val application = requireNotNull(activity).application
+        val binding = MovieDetailFragmentBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        val marsProperty = MovieDetailFragmentArgs.fromBundle(requireArguments()).selectedMovie
+        val viewModelFactory = MovieDetailViewModelFactory(marsProperty, application)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding.viewModel = ViewModelProvider(this, viewModelFactory).get(MovieDetailViewModel::class.java)
+
+        return binding.root
     }
 
 }

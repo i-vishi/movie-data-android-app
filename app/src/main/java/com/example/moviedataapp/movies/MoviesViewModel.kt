@@ -23,8 +23,8 @@ class MoviesViewModel : ViewModel() {
     private val _movies = MutableLiveData<List<MovieDetail>>()
     val movies: LiveData<List<MovieDetail>> get() = _movies
 
-    private val _navigateToSelectedMovie = MutableLiveData<MovieDetail>()
-    val navigateToSelectedMovie: LiveData<MovieDetail> get() = _navigateToSelectedMovie
+    private val _navigateToSelectedMovie = MutableLiveData<MovieDetail?>()
+    val navigateToSelectedMovie: LiveData<MovieDetail?> get() = _navigateToSelectedMovie
 
     private val movieList = mutableListOf<MovieDetail>()
 
@@ -73,9 +73,9 @@ class MoviesViewModel : ViewModel() {
         _navigateToSelectedMovie.value = movie
     }
 
-//    fun displayMovieDetailsComplete() {
-//        _navigateToSelectedMovie.value = null
-//    }
+    fun displayMovieDetailsComplete() {
+        _navigateToSelectedMovie.value = null
+    }
 
 //	private fun getAllMoviesDetails(responseList: List<String>) {
 //		viewModelScope.launch {

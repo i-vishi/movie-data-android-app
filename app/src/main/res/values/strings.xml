@@ -11,7 +11,12 @@
     <string name="topicTitle"><![CDATA[THIS IS TOPIC TITLE]]></string>
     <string name="previous">Previos</string>
     <string name="some_random_text">Some Random Text</string>
-    <string name="text_loading_text">Getting Data...</string>
+    <string name="text_loading_text">Getting Data…</string>
     <string name="movie_image_description">Movie Image</string>
     <string name="error_placeholder_image">error placeholder image</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="movie_release_year">Release Year: 2021</string>
+    <string name="movie_running_time">Running Time: 120 Minutes</string>
+    <string name="display_release_year">Release Year: %d</string>
+    <string name="display_running_time">Running Time: %d minutes</string>
 </resources>

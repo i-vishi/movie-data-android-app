@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedataapp.databinding.GridViewItemBinding
 import com.example.moviedataapp.network.MovieDetail
 
-//
 class PhotoGridAdapter(val onClickListener: OnClickListener) :
     ListAdapter<MovieDetail, PhotoGridAdapter.MovieViewHolder>(DiffCallback) {
 
@@ -25,7 +24,7 @@ class PhotoGridAdapter(val onClickListener: OnClickListener) :
     }
 
     /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [Movie]
+     * Allows the RecyclerView to determine which items have changed when the [List] of [MovieDetail]
      * has been updated.
      */
     companion object DiffCallback : DiffUtil.ItemCallback<MovieDetail>() {

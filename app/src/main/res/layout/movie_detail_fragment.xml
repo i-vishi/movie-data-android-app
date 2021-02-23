@@ -1,13 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".detail.MovieDetailFragment">
 
-    <TextView
-        android:layout_width="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.moviedataapp.detail.MovieDetailViewModel" />
+    </data>
+
+    <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        tools:context="com.example.moviedataapp.detail.MovieDetailFragment">
 
-</FrameLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:contentPadding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/movie_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@{viewModel.selectedMovie.title}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <ImageView
+                    android:id="@+id/movie_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="600dp"
+                    android:layout_margin="8dp"
+                    android:adjustViewBounds="false"
+                    android:contentDescription="@string/movie_image_description"
+                    android:scaleType="fitCenter"
+                    app:imageUrl="@{viewModel.selectedMovie.image.url}"
+                    app:srcCompat="@drawable/placeholder_image" />
+
+                <TextView
+                    android:id="@+id/movie_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@{viewModel.getReleaseYear}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <TextView
+                    android:id="@+id/movie_running_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@{viewModel.getRunningTime}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+</layout>
