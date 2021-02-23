@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id "androidx.navigation.safeargs.kotlin"
+    id 'kotlin-android-extensions'
 }
 
 def apikeyPropertiesFile = rootProject.file("apikey.properties")
@@ -80,6 +81,7 @@ dependencies {
 
     // multidex
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
 
 
     testImplementation 'junit:junit:4.13.1'

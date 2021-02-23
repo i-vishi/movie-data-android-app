@@ -10,6 +10,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 private const val BASE_URL = "https://imdb8.p.rapidapi.com/title/"
 private const val APIKEY = BuildConfig.API_KEY
@@ -37,7 +38,16 @@ private val retrofit = Retrofit.Builder()
 
 interface IMDbApiService {
 	@GET("get-most-popular-movies")
-	fun getTopMovies(): Call<List<String>>
+	suspend fun getTrendingMovies(): List<String>
+
+	@GET("get-top-rated-movies")
+	suspend fun getTopRatedMovies(): List<String>
+
+	@GET("get-coming-soon-movies")
+	suspend fun getComingSoonMovies(): List<String>
+
+	@GET("get-details")
+	suspend fun getMovieDetails(@Query("tconst") tconst: String): MovieDetail
 }
 
 object IMDbApi {
