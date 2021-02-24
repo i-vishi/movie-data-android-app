@@ -1,10 +1,9 @@
 package com.example.moviedataapp.movies
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.moviedataapp.R
 import com.example.moviedataapp.network.IMDbApi
 import com.example.moviedataapp.network.MovieDetail
 import kotlinx.coroutines.launch
@@ -15,7 +14,8 @@ enum class IMDbApiStatus { LOADING, ERROR, DONE }
 
 private const val TAG = "MoviesViewModel"
 
-class MoviesViewModel : ViewModel() {
+class MoviesViewModel(application: Application, apiString: String) :
+    AndroidViewModel(application) {
 
     private val _status = MutableLiveData<IMDbApiStatus>()
     val status: LiveData<IMDbApiStatus> get() = _status
@@ -28,7 +28,13 @@ class MoviesViewModel : ViewModel() {
 
     private val movieList = mutableListOf<MovieDetail>()
 
+    private val _selectedApiString = MutableLiveData<String>()
+    val selectedApiString: LiveData<String> get() = _selectedApiString
+
+    val app = application
+
     init {
+        _selectedApiString.value = apiString
         getMovies()
     }
 
@@ -36,7 +42,16 @@ class MoviesViewModel : ViewModel() {
         viewModelScope.launch {
             _status.value = IMDbApiStatus.LOADING
             try {
-                val res = IMDbApi.retrofitService.getTrendingMovies()
+                val res = when (_selectedApiString.value) {
+
+                    app.applicationContext.getString(R.string.apiTopRated) -> {
+                        val resTopRated = IMDbApi.retrofitService.getTopRatedMovies()
+                        resTopRated[0]
+                    }
+                    app.applicationContext.getString(R.string.apiComingSoon) -> IMDbApi.retrofitService.getComingSoonMovies()
+                    app.applicationContext.getString(R.string.apiTrending) -> IMDbApi.retrofitService.getTrendingMovies()
+                    else -> mutableListOf()
+                }
 
                 // add response to movies
                 val res2 = res.subList(0, 5)

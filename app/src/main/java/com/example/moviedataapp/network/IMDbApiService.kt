@@ -40,7 +40,7 @@ interface IMDbApiService {
 	suspend fun getTrendingMovies(): List<String>
 
 	@GET("get-top-rated-movies")
-	suspend fun getTopRatedMovies(): List<String>
+	suspend fun getTopRatedMovies(): List<List<String>>
 
 	@GET("get-coming-soon-movies")
 	suspend fun getComingSoonMovies(): List<String>
