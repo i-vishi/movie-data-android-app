@@ -1,37 +1,66 @@
 package com.example.moviedataapp.detail
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.moviedataapp.R
+import com.example.moviedataapp.movies.IMDbApiStatus
+import com.example.moviedataapp.network.APIKEY
+import com.example.moviedataapp.network.IMDbApi
 import com.example.moviedataapp.network.MovieDetail
+import com.example.moviedataapp.network.MovieResult
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class MovieDetailViewModel(movieData: MovieDetail, application: Application) :
-    AndroidViewModel(application) {
+private const val TAG = "MovieDetailViewModel"
 
-    private val _selectedMovie = MutableLiveData<MovieDetail>()
-    val selectedMovie: LiveData<MovieDetail> get() = _selectedMovie
+class MovieDetailViewModel(movieDataId: Int, application: Application) :
+		AndroidViewModel(application) {
 
-    init {
-        _selectedMovie.value = movieData
-    }
+	private val _selectedMovieId = MutableLiveData<Int>()
+	val selectedMovieId: LiveData<Int> get() = _selectedMovieId
 
-    val getReleaseYear = Transformations.map(selectedMovie) {
-        application.applicationContext.getString(R.string.display_release_year, it.year)
-    }
+	private val _status = MutableLiveData<IMDbApiStatus>()
+	val status: LiveData<IMDbApiStatus> get() = _status
 
-    val getRunningTime = Transformations.map(selectedMovie) {
-        when (it.runningTimeInMinutes) {
-            0 -> "Running Time: NA"
-            else -> {
-                application.applicationContext.getString(
-                    R.string.display_running_time,
-                    it.runningTimeInMinutes
-                )
-            }
-        }
+	private val _movieData = MutableLiveData<MovieDetail?>()
+	val movieData: LiveData<MovieDetail?> get() = _movieData
 
-    }
+	init {
+		_selectedMovieId.value = movieDataId
+		getMovieData()
+	}
+
+	private fun getMovieData() {
+		viewModelScope.launch {
+			_status.value = IMDbApiStatus.LOADING
+			try {
+				Log.d(TAG, "id is ${_selectedMovieId.value.toString()}")
+				_movieData.value = IMDbApi.retrofitService.getMovieDetails(_selectedMovieId.value!!, APIKEY)
+				Log.d(TAG, _movieData.value.toString())
+				_status.value = IMDbApiStatus.DONE
+			} catch (e: Exception) {
+				_status.value = IMDbApiStatus.ERROR
+				_movieData.value = null
+				Log.d(TAG, status.value.toString() + "  $e")
+			}
+		}
+	}
+
+	val getReleaseDate = Transformations.map(movieData) {
+		application.applicationContext.getString(R.string.display_release_year, it?.releaseDate)
+	}
+
+	val getRunningTime = Transformations.map(movieData) {
+		when (it?.runtime) {
+			0 -> "Running Time: NA"
+			else -> {
+				application.applicationContext.getString(
+						R.string.display_running_time,
+						it?.runtime
+				)
+			}
+		}
+
+	}
 }

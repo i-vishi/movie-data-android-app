@@ -11,9 +11,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.moviedataapp.movies.IMDbApiStatus
 import com.example.moviedataapp.movies.PhotoGridAdapter
 import com.example.moviedataapp.network.MovieDetail
+import com.example.moviedataapp.network.MovieResult
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<MovieDetail>?) {
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<MovieResult.Movie>?) {
 	val adapter = recyclerView.adapter as PhotoGridAdapter
 	adapter.submitList(data)
 }

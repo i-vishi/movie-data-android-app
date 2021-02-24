@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="@{viewModel.selectedMovie.title}"
+                    android:text="@{viewModel.movieData.title}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
                 <ImageView
@@ -41,7 +41,7 @@
                     android:adjustViewBounds="false"
                     android:contentDescription="@string/movie_image_description"
                     android:scaleType="fitCenter"
-                    app:imageUrl="@{viewModel.selectedMovie.image.url}"
+                    app:imageUrl="@{`https://image.tmdb.org/t/p/original`+viewModel.movieData.posterPath}"
                     app:srcCompat="@drawable/placeholder_image" />
 
                 <TextView
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="@{viewModel.getReleaseYear}"
+                    android:text="@{viewModel.getReleaseDate}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                 <TextView

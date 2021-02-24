@@ -7,7 +7,7 @@
 
         <variable
             name="movie"
-            type="com.example.moviedataapp.network.MovieDetail" />
+            type="com.example.moviedataapp.network.MovieResult.Movie" />
     </data>
 
     <ImageView
@@ -17,7 +17,7 @@
         android:adjustViewBounds="true"
         android:padding="2dp"
         android:scaleType="fitCenter"
-        app:imageUrl="@{movie.image.url}"
+        app:imageUrl="@{`https://image.tmdb.org/t/p/original`+movie.posterPath}"
         tools:src="@tools:sample/backgrounds/scenic"
         android:contentDescription="@string/movie_image_description" />
 </layout>

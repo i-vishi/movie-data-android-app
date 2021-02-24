@@ -9,44 +9,39 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://imdb8.p.rapidapi.com/title/"
-private const val APIKEY = BuildConfig.API_KEY
+private const val BASE_URL = "https://api.themoviedb.org/3/movie/"
+const val APIKEY = BuildConfig.API_KEY
 
 private val moshi = Moshi.Builder()
 		.add(KotlinJsonAdapterFactory())
 		.build()
 
-private val okHttpClient = OkHttpClient.Builder().apply {
-	addInterceptor(
-			Interceptor { chain ->
-				val builder = chain.request().newBuilder()
-				builder.header("x-rapidapi-key", APIKEY)
-				builder.header("x-rapidapi-host", "imdb8.p.rapidapi.com")
-				return@Interceptor chain.proceed(builder.build())
-			}
-	)
-}.build()
+//private val okHttpClient = OkHttpClient.Builder().apply {
+//	addInterceptor(
+//			Interceptor { chain ->
+//				val builder = chain.request().newBuilder()
+//				builder.header("x-rapidapi-key", APIKEY)
+//				builder.header("x-rapidapi-host", "imdb8.p.rapidapi.com")
+//				return@Interceptor chain.proceed(builder.build())
+//			}
+//	)
+//}.build()
 
 private val retrofit = Retrofit.Builder()
-		.client(okHttpClient)
+//		.client(okHttpClient)
 		.addConverterFactory(MoshiConverterFactory.create(moshi))
 		.baseUrl(BASE_URL)
 		.build()
 
 interface IMDbApiService {
-	@GET("get-most-popular-movies")
-	suspend fun getTrendingMovies(): List<String>
+	@GET("{criteria}")
+	suspend fun getMovies(@Path(value = "criteria", encoded = true) criteria: String,@Query("api_key") api_key: String): MovieResult
 
-	@GET("get-top-rated-movies")
-	suspend fun getTopRatedMovies(): List<List<String>>
-
-	@GET("get-coming-soon-movies")
-	suspend fun getComingSoonMovies(): List<String>
-
-	@GET("get-details")
-	suspend fun getMovieDetails(@Query("tconst") tconst: String): MovieDetail
+	@GET("{movieId}")
+	suspend fun getMovieDetails(@Path(value = "movieId", encoded = true) movieId: Int, @Query("api_key") api_key: String): MovieDetail
 }
 
 object IMDbApi {
@@ -58,7 +53,7 @@ object IMDbApi {
 
 // all topics to be shown on Home
 class TopicsData {
-	fun loadTopics() : List<Topic> {
+	fun loadTopics(): List<Topic> {
 		return listOf(
 				Topic(R.string.trending, R.string.apiTrending),
 				Topic(R.string.topRated, R.string.apiTopRated),

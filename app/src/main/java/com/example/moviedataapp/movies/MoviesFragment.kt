@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.moviedataapp.databinding.FragmentMoviesBinding
-import com.example.moviedataapp.detail.MovieDetailViewModel
 
 class MoviesFragment : Fragment() {
 
@@ -51,7 +50,7 @@ class MoviesFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.moviesPhotoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
-            viewModel.displayMovieDetails(it)
+            viewModel.displayMovieDetails(it.id)
         })
 
         viewModel.navigateToSelectedMovie.observe(viewLifecycleOwner, {

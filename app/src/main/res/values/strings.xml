@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Movie Data App</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="trending">Trending Movies</string>
-    <string name="apiTrending">get-most-popular-movies</string>
-    <string name="comingSoon">Movies Coming Soon</string>
-    <string name="apiComingSoon">get-coming-soon-movies</string>
+    <string name="trending">Popular Movies</string>
+    <string name="apiTrending">popular</string>
+    <string name="comingSoon">Upcoming Movies</string>
+    <string name="apiComingSoon">upcoming</string>
     <string name="topRated">Top Rated Movies</string>
-    <string name="apiTopRated">get-top-rated-movies</string>
+    <string name="apiTopRated">top_rated</string>
 
     <string name="topicTitle"><![CDATA[THIS IS TOPIC TITLE]]></string>
     <string name="previous">Previos</string>
@@ -17,6 +17,7 @@
     <string name="movie_title">Movie Title</string>
     <string name="movie_release_year">Release Year: 2021</string>
     <string name="movie_running_time">Running Time: 120 Minutes</string>
-    <string name="display_release_year">Release Year: %d</string>
+    <string name="display_release_year">Release Date: %s</string>
     <string name="display_running_time">Running Time: %d minutes</string>
+    <string name="image_path">https://image.tmdb.org/t/p/original%s</string>
 </resources>

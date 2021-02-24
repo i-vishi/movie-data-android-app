@@ -18,8 +18,8 @@ class MovieDetailFragment : Fragment() {
         val application = requireNotNull(activity).application
         val binding = MovieDetailFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        val marsProperty = MovieDetailFragmentArgs.fromBundle(requireArguments()).selectedMovie
-        val viewModelFactory = MovieDetailViewModelFactory(marsProperty, application)
+        val movieId = MovieDetailFragmentArgs.fromBundle(requireArguments()).selectedMovieId
+        val viewModelFactory = MovieDetailViewModelFactory(movieId, application)
 
         binding.viewModel = ViewModelProvider(this, viewModelFactory).get(MovieDetailViewModel::class.java)
 

@@ -36,8 +36,8 @@
         android:label="MovieDetailFragment"
         tools:layout="@layout/movie_detail_fragment">
         <argument
-            android:name="selectedMovie"
-            app:argType="com.example.moviedataapp.network.MovieDetail" />
+            android:name="selectedMovieId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

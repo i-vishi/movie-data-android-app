@@ -7,33 +7,34 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedataapp.databinding.GridViewItemBinding
 import com.example.moviedataapp.network.MovieDetail
+import com.example.moviedataapp.network.MovieResult
 
 class PhotoGridAdapter(val onClickListener: OnClickListener) :
-    ListAdapter<MovieDetail, PhotoGridAdapter.MovieViewHolder>(DiffCallback) {
+    ListAdapter<MovieResult.Movie, PhotoGridAdapter.MovieViewHolder>(DiffCallback) {
 
     class MovieViewHolder(private var binding: GridViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieData: MovieDetail) {
+        fun bind(movieData: MovieResult.Movie) {
             binding.movie = movieData
             binding.executePendingBindings()
         }
     }
 
-    class OnClickListener(val clickListener: (movieData: MovieDetail) -> Unit) {
-        fun onClick(movieData: MovieDetail) = clickListener(movieData)
+    class OnClickListener(val clickListener: (movieData: MovieResult.Movie) -> Unit) {
+        fun onClick(movieData: MovieResult.Movie) = clickListener(movieData)
     }
 
     /**
      * Allows the RecyclerView to determine which items have changed when the [List] of [MovieDetail]
      * has been updated.
      */
-    companion object DiffCallback : DiffUtil.ItemCallback<MovieDetail>() {
-        override fun areItemsTheSame(oldItem: MovieDetail, newItem: MovieDetail): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<MovieResult.Movie>() {
+        override fun areItemsTheSame(oldItem: MovieResult.Movie, newItem: MovieResult.Movie): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: MovieDetail, newItem: MovieDetail): Boolean {
-            return oldItem.title == newItem.title
+        override fun areContentsTheSame(oldItem: MovieResult.Movie, newItem: MovieResult.Movie): Boolean {
+            return oldItem.id == newItem.id
         }
     }
 
