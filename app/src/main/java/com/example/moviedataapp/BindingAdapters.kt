@@ -1,5 +1,6 @@
 package com.example.moviedataapp
 
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -40,33 +41,50 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 }
 
 @BindingAdapter("imdbApiStatus")
-fun bindStatus(statusImageView: ImageView, status: IMDbApiStatus?) {
-	when (status) {
-		IMDbApiStatus.LOADING -> {
-			statusImageView.visibility = View.VISIBLE
-			statusImageView.setImageResource(R.drawable.loading_animation)
-		}
-		IMDbApiStatus.ERROR -> {
-			statusImageView.visibility = View.VISIBLE
-			statusImageView.setImageResource(R.drawable.placeholder_image)
-		}
-		IMDbApiStatus.DONE -> {
-			statusImageView.visibility = View.GONE
-		}
-	}
-}
-
-@BindingAdapter("imdbGettingData")
-fun bindGettingStatus(statusTextView: TextView, status: IMDbApiStatus?) {
+fun bindStatus(statusTextView: TextView, status: IMDbApiStatus?) {
 	when (status) {
 		IMDbApiStatus.LOADING -> {
 			statusTextView.visibility = View.VISIBLE
 		}
 		IMDbApiStatus.ERROR -> {
-			statusTextView.visibility = View.GONE
+			statusTextView.visibility = View.VISIBLE
+			statusTextView.text = "Error displaying Data"
+			statusTextView.setTextColor(Color.RED)
 		}
 		IMDbApiStatus.DONE -> {
 			statusTextView.visibility = View.GONE
 		}
 	}
 }
+
+//@BindingAdapter("imdbApiStatus")
+//fun bindStatus(statusImageView: ImageView, status: IMDbApiStatus?) {
+//	when (status) {
+//		IMDbApiStatus.LOADING -> {
+//			statusImageView.visibility = View.VISIBLE
+//			statusImageView.setImageResource(R.drawable.loading_animation)
+//		}
+//		IMDbApiStatus.ERROR -> {
+//			statusImageView.visibility = View.VISIBLE
+//			statusImageView.setImageResource(R.drawable.placeholder_image)
+//		}
+//		IMDbApiStatus.DONE -> {
+//			statusImageView.visibility = View.GONE
+//		}
+//	}
+//}
+
+//@BindingAdapter("imdbGettingData")
+//fun bindGettingStatus(statusTextView: TextView, status: IMDbApiStatus?) {
+//	when (status) {
+//		IMDbApiStatus.LOADING -> {
+//			statusTextView.visibility = View.VISIBLE
+//		}
+//		IMDbApiStatus.ERROR -> {
+//			statusTextView.visibility = View.GONE
+//		}
+//		IMDbApiStatus.DONE -> {
+//			statusTextView.visibility = View.GONE
+//		}
+//	}
+//}

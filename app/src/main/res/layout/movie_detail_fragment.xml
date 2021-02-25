@@ -5,14 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.moviedataapp.detail.MovieDetailViewModel" />
     </data>
 
-    <ScrollView android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="8dp"
+        android:paddingBottom="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.example.moviedataapp.detail.MovieDetailFragment">
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -31,12 +37,13 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:text="@{viewModel.movieData.title}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    tools:text="Movie Title" />
 
                 <ImageView
                     android:id="@+id/movie_detail_image"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp"
+                    android:layout_height="500dp"
                     android:layout_margin="8dp"
                     android:adjustViewBounds="false"
                     android:contentDescription="@string/movie_image_description"
@@ -44,21 +51,42 @@
                     app:imageUrl="@{`https://image.tmdb.org/t/p/original`+viewModel.movieData.posterPath}"
                     app:srcCompat="@drawable/placeholder_image" />
 
-                <TextView
-                    android:id="@+id/movie_year"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@{viewModel.getReleaseDate}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/movie_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="@{viewModel.getReleaseDate}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        tools:text="2021-02-02" />
+
+                    <TextView
+                        android:id="@+id/movie_running_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:text="@{viewModel.getRunningTime}"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        tools:text="120 minutes" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/movie_running_time"
+                    android:id="@+id/movie_overview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="@{viewModel.getRunningTime}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:text="@{viewModel.movieData.overview}"
+                    tools:text="@string/movie_overview_text" />
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>

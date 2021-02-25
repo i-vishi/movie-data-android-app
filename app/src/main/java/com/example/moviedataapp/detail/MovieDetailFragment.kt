@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.MovieDetailFragmentBinding
+import com.example.moviedataapp.movies.MoviesFragmentDirections
 
 class MovieDetailFragment : Fragment() {
 

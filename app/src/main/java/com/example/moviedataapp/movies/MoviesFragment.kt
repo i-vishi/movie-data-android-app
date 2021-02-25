@@ -5,12 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.FragmentMoviesBinding
+import kotlin.concurrent.fixedRateTimer
 
 class MoviesFragment : Fragment() {
 
@@ -49,6 +53,10 @@ class MoviesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        val activity = activity as AppCompatActivity
+        activity.supportActionBar?.title = getScreenTitle()
+
+
         binding.moviesPhotoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
             viewModel.displayMovieDetails(it.id)
         })
@@ -62,5 +70,16 @@ class MoviesFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+
+
+    private fun getScreenTitle(): String {
+        return when(apiGetString) {
+            context?.getString(R.string.apiTrending) -> requireContext().getString(R.string.trending)
+            context?.getString(R.string.apiComingSoon) -> requireContext().getString(R.string.comingSoon)
+            context?.getString(R.string.apiTopRated) -> requireContext().getString(R.string.topRated)
+            else -> requireContext().getString(R.string.app_name)
+        }
     }
 }

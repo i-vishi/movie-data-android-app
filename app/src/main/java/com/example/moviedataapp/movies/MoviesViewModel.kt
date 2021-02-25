@@ -40,7 +40,7 @@ class MoviesViewModel(application: Application, apiString: String) :
 		viewModelScope.launch {
 			_status.value = IMDbApiStatus.LOADING
 			try {
-				val res = IMDbApi.retrofitService.getMovies(_selectedApiString.value!!, APIKEY)
+				val res = IMDbApi.retrofitService.getMovies(_selectedApiString.value!!, APIKEY, "IN")
 				Log.d(TAG, res.toString())
 				_movies.value = res.results
 				_status.value = IMDbApiStatus.DONE

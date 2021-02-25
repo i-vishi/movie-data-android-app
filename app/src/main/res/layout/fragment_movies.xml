@@ -34,16 +34,6 @@
             tools:itemCount="16"
             tools:listitem="@layout/grid_view_item" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:imdbApiStatus="@{viewModel.status}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/error_placeholder_image" />
-
         <TextView
             android:id="@+id/loading_text"
             android:layout_width="match_parent"
@@ -54,19 +44,11 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"
             android:textStyle="bold"
             android:typeface="sans"
-            app:imdbGettingData="@{viewModel.status}"
+            app:imdbApiStatus="@{viewModel.status}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!--        <TextView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--            app:layout_constraintRight_toRightOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

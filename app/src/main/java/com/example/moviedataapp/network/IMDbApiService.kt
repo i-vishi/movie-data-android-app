@@ -38,7 +38,7 @@ private val retrofit = Retrofit.Builder()
 
 interface IMDbApiService {
 	@GET("{criteria}")
-	suspend fun getMovies(@Path(value = "criteria", encoded = true) criteria: String,@Query("api_key") api_key: String): MovieResult
+	suspend fun getMovies(@Path(value = "criteria", encoded = true) criteria: String,@Query("api_key") api_key: String, @Query("region") region: String): MovieResult
 
 	@GET("{movieId}")
 	suspend fun getMovieDetails(@Path(value = "movieId", encoded = true) movieId: Int, @Query("api_key") api_key: String): MovieDetail
