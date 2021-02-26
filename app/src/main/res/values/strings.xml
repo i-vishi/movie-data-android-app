@@ -5,6 +5,8 @@
     <string name="apiTrending">popular</string>
     <string name="comingSoon">Upcoming Movies</string>
     <string name="apiComingSoon">upcoming</string>
+    <string name="nowPlaying">Movies Playing Now</string>
+    <string name="apiNowPlaying">now_playing</string>
     <string name="topRated">Top Rated Movies</string>
     <string name="apiTopRated">top_rated</string>
 

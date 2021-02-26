@@ -4,8 +4,6 @@ import com.example.moviedataapp.BuildConfig
 import com.example.moviedataapp.R
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -19,26 +17,14 @@ private val moshi = Moshi.Builder()
 		.add(KotlinJsonAdapterFactory())
 		.build()
 
-//private val okHttpClient = OkHttpClient.Builder().apply {
-//	addInterceptor(
-//			Interceptor { chain ->
-//				val builder = chain.request().newBuilder()
-//				builder.header("x-rapidapi-key", APIKEY)
-//				builder.header("x-rapidapi-host", "imdb8.p.rapidapi.com")
-//				return@Interceptor chain.proceed(builder.build())
-//			}
-//	)
-//}.build()
-
 private val retrofit = Retrofit.Builder()
-//		.client(okHttpClient)
 		.addConverterFactory(MoshiConverterFactory.create(moshi))
 		.baseUrl(BASE_URL)
 		.build()
 
 interface IMDbApiService {
 	@GET("{criteria}")
-	suspend fun getMovies(@Path(value = "criteria", encoded = true) criteria: String,@Query("api_key") api_key: String, @Query("region") region: String): MovieResult
+	suspend fun getMovies(@Path(value = "criteria", encoded = true) criteria: String, @Query("api_key") api_key: String, @Query("region") region: String): MovieResult
 
 	@GET("{movieId}")
 	suspend fun getMovieDetails(@Path(value = "movieId", encoded = true) movieId: Int, @Query("api_key") api_key: String): MovieDetail
@@ -58,6 +44,7 @@ class TopicsData {
 				Topic(R.string.trending, R.string.apiTrending),
 				Topic(R.string.topRated, R.string.apiTopRated),
 				Topic(R.string.comingSoon, R.string.apiComingSoon),
+				Topic(R.string.nowPlaying, R.string.apiNowPlaying),
 		)
 	}
 }

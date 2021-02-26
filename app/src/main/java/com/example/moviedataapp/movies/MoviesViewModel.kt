@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.moviedataapp.network.APIKEY
 import com.example.moviedataapp.network.IMDbApi
-import com.example.moviedataapp.network.MovieDetail
 import com.example.moviedataapp.network.MovieResult
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -26,8 +25,6 @@ class MoviesViewModel(application: Application, apiString: String) :
 	private val _navigateToSelectedMovie = MutableLiveData<Int?>()
 	val navigateToSelectedMovie: LiveData<Int?> get() = _navigateToSelectedMovie
 
-	private val movieList = mutableListOf<MovieDetail>()
-
 	private val _selectedApiString = MutableLiveData<String>()
 	val selectedApiString: LiveData<String> get() = _selectedApiString
 
@@ -40,7 +37,7 @@ class MoviesViewModel(application: Application, apiString: String) :
 		viewModelScope.launch {
 			_status.value = IMDbApiStatus.LOADING
 			try {
-				val res = IMDbApi.retrofitService.getMovies(_selectedApiString.value!!, APIKEY, "IN")
+				val res = IMDbApi.retrofitService.getMovies(selectedApiString.value!!, APIKEY, "IN")
 				Log.d(TAG, res.toString())
 				_movies.value = res.results
 				_status.value = IMDbApiStatus.DONE
@@ -53,18 +50,6 @@ class MoviesViewModel(application: Application, apiString: String) :
 		}
 	}
 
-//    private suspend fun getMovieDetails() {
-//            var i = 0
-//            for (movie in movieList) {
-//                val movieDetail = IMDbApi.retrofitService.getMovieDetails(movie.id)
-//                Log.d(TAG, movieDetail.toString())
-//                movieList[i] = movieDetail
-//                i += 1
-//            }
-//            _movies.value = movieList
-//
-//    }
-
 	fun displayMovieDetails(movieId: Int) {
 		_navigateToSelectedMovie.value = movieId
 	}
@@ -72,13 +57,4 @@ class MoviesViewModel(application: Application, apiString: String) :
 	fun displayMovieDetailsComplete() {
 		_navigateToSelectedMovie.value = null
 	}
-
-//	private fun getAllMoviesDetails(responseList: List<String>) {
-//		viewModelScope.launch {
-//			try {
-//			    for (item in responseList) {
-//				}
-//			}
-//		}
-//	}
 }
