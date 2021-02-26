@@ -13,18 +13,14 @@ import com.example.moviedataapp.movies.IMDbApiStatus
 import com.example.moviedataapp.movies.PhotoGridAdapter
 import com.example.moviedataapp.network.MovieDetail
 import com.example.moviedataapp.network.MovieResult
+import com.google.android.material.progressindicator.BaseProgressIndicator
+import com.google.android.material.progressindicator.LinearProgressIndicator
 
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<MovieResult.Movie>?) {
 	val adapter = recyclerView.adapter as PhotoGridAdapter
 	adapter.submitList(data)
 }
-
-//@BindingAdapter("listData")
-//fun bindMoviesRecyclerView(recyclerView: RecyclerView, data: List<Movie>?) {
-//	val adapter = recyclerView.adapter as PhotoGridAdapter
-//	adapter.submitList(data)
-//}
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -41,50 +37,21 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 }
 
 @BindingAdapter("imdbApiStatus")
-fun bindStatus(statusTextView: TextView, status: IMDbApiStatus?) {
+fun bindStatus(progressIndicator: LinearProgressIndicator, status: IMDbApiStatus?) {
 	when (status) {
 		IMDbApiStatus.LOADING -> {
-			statusTextView.visibility = View.VISIBLE
+			progressIndicator.visibility = View.VISIBLE
+			progressIndicator.showAnimationBehavior
 		}
 		IMDbApiStatus.ERROR -> {
-			statusTextView.visibility = View.VISIBLE
-			statusTextView.text = "Error displaying Data"
-			statusTextView.setTextColor(Color.RED)
+			progressIndicator.hideAnimationBehavior
+			progressIndicator.visibility = View.GONE
+//			progressIndicator.text = "Error displaying Data"
+//			progressIndicator.setTextColor(Color.RED)
 		}
 		IMDbApiStatus.DONE -> {
-			statusTextView.visibility = View.GONE
+			progressIndicator.hideAnimationBehavior
+			progressIndicator.visibility = View.GONE
 		}
 	}
 }
-
-//@BindingAdapter("imdbApiStatus")
-//fun bindStatus(statusImageView: ImageView, status: IMDbApiStatus?) {
-//	when (status) {
-//		IMDbApiStatus.LOADING -> {
-//			statusImageView.visibility = View.VISIBLE
-//			statusImageView.setImageResource(R.drawable.loading_animation)
-//		}
-//		IMDbApiStatus.ERROR -> {
-//			statusImageView.visibility = View.VISIBLE
-//			statusImageView.setImageResource(R.drawable.placeholder_image)
-//		}
-//		IMDbApiStatus.DONE -> {
-//			statusImageView.visibility = View.GONE
-//		}
-//	}
-//}
-
-//@BindingAdapter("imdbGettingData")
-//fun bindGettingStatus(statusTextView: TextView, status: IMDbApiStatus?) {
-//	when (status) {
-//		IMDbApiStatus.LOADING -> {
-//			statusTextView.visibility = View.VISIBLE
-//		}
-//		IMDbApiStatus.ERROR -> {
-//			statusTextView.visibility = View.GONE
-//		}
-//		IMDbApiStatus.DONE -> {
-//			statusTextView.visibility = View.GONE
-//		}
-//	}
-//}
