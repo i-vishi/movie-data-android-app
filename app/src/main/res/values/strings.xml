@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Movie Data App</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="trending">Popular Movies</string>
+    <string name="trending">Trending Movies</string>
     <string name="apiTrending">popular</string>
     <string name="comingSoon">Upcoming Movies</string>
     <string name="apiComingSoon">upcoming</string>
@@ -9,7 +9,6 @@
     <string name="apiTopRated">top_rated</string>
 
     <string name="topicTitle"><![CDATA[THIS IS TOPIC TITLE]]></string>
-    <string name="previous">Previos</string>
     <string name="some_random_text">Some Random Text</string>
     <string name="text_loading_text">Getting Data…</string>
     <string name="movie_image_description">Movie Image</string>

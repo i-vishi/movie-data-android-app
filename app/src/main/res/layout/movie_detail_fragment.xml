@@ -20,13 +20,14 @@
         tools:context="com.example.moviedataapp.detail.MovieDetailFragment">
 
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:contentPadding="10dp">
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="2dp"
+            app:contentPadding="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,18 +39,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
-                    android:fontFamily="sans-serif"
                     android:text="@{viewModel.movieData.title}"
                     android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textSize="30sp"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Overline"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
                     tools:text="Movie Title" />
 
                 <ImageView
                     android:id="@+id/movie_detail_image"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"
-                    android:layout_margin="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
                     android:adjustViewBounds="false"
                     android:contentDescription="@string/movie_image_description"
                     android:scaleType="centerInside"
@@ -59,6 +62,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginBottom="8dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -66,21 +73,22 @@
                         android:id="@+id/movie_year"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
                         android:layout_weight="1"
                         android:text="@{viewModel.getReleaseDate}"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
+                        android:textSize="20sp"
                         tools:text="2021-02-02" />
 
                     <TextView
                         android:id="@+id/movie_running_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/roboto"
                         android:text="@{viewModel.getRunningTime}"
                         android:textAlignment="textEnd"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@android:color/primary_text_light"
+                        android:textSize="20sp"
                         tools:text="120 minutes" />
                 </LinearLayout>
 
@@ -90,9 +98,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:text="@{viewModel.movieData.overview}"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
                     tools:text="@string/movie_overview_text" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
     </ScrollView>
 </layout>
