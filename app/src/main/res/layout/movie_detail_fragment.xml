@@ -23,7 +23,9 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
             app:contentPadding="10dp">
 
             <LinearLayout
@@ -35,19 +37,22 @@
                     android:id="@+id/movie_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
+                    android:fontFamily="sans-serif"
                     android:text="@{viewModel.movieData.title}"
+                    android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="30sp"
                     tools:text="Movie Title" />
 
                 <ImageView
                     android:id="@+id/movie_detail_image"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:layout_margin="8dp"
+                    android:layout_height="600dp"
+                    android:layout_margin="4dp"
                     android:adjustViewBounds="false"
                     android:contentDescription="@string/movie_image_description"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerInside"
                     app:imageUrl="@{`https://image.tmdb.org/t/p/original`+viewModel.movieData.posterPath}"
                     app:srcCompat="@drawable/placeholder_image" />
 

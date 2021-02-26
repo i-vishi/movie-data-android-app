@@ -21,4 +21,9 @@
     <string name="display_running_time">%d minutes</string>
     <string name="image_path">https://image.tmdb.org/t/p/original%s</string>
     <string name="movie_overview_text">some random text</string>
+    <string name="menu_about">About</string>
+    <string name="title_about">About Movie Data App</string>
+    <string name="text_about_1">This app is built using The Movie DB API</string>
+    <string name="tmdb_logo_description">The Movie DB Logo</string>
+    <string name="close_dialog">Close</string>
 </resources>
