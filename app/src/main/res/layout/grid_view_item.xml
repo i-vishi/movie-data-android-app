@@ -10,14 +10,60 @@
             type="com.example.moviedataapp.network.MovieResult.Movie" />
     </data>
 
-    <ImageView
-        android:id="@+id/movie_image"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:adjustViewBounds="true"
-        android:padding="2dp"
-        android:scaleType="fitCenter"
-        app:imageUrl="@{`https://image.tmdb.org/t/p/original`+movie.posterPath}"
-        tools:src="@tools:sample/backgrounds/scenic"
-        android:contentDescription="@string/movie_image_description" />
+        android:layout_height="wrap_content"
+        android:padding="2dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/album_card"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:padding="2dp"
+            app:cardPreventCornerOverlap="false"
+            app:shapeAppearance="@style/ShapeAppearance.MovieCardView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/movieImage"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{`https://image.tmdb.org/t/p/original`+movie.posterPath}"
+                    app:shapeAppearance="@style/ShapeAppearance.MovieImageView" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/album_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:text="@{movie.title}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="Movie Name" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+
+    <!--    <ImageView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="180dp"-->
+    <!--        android:adjustViewBounds="true"-->
+    <!--        android:contentDescription="@string/movie_image_description"-->
+    <!--        android:padding="2dp"-->
+    <!--        android:scaleType="centerCrop"-->
+    <!--        android:transitionName="@{`movie_`+movie.id}"-->
+    <!--      -->
+    <!--        tools:src="@tools:sample/backgrounds/scenic" />-->
 </layout>

@@ -1,53 +1,90 @@
 package com.example.moviedataapp.movies
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.annotation.RequiresApi
+import androidx.core.net.toUri
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
+import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.GridViewItemBinding
 import com.example.moviedataapp.network.MovieDetail
 import com.example.moviedataapp.network.MovieResult
 
-class PhotoGridAdapter(val onClickListener: OnClickListener) :
-    ListAdapter<MovieResult.Movie, PhotoGridAdapter.MovieViewHolder>(DiffCallback) {
+class PhotoGridAdapter(private val onClickListener: OnClickListener, private val context: Context) :
+		ListAdapter<MovieResult.Movie, PhotoGridAdapter.MovieViewHolder>(DiffCallback) {
 
-    class MovieViewHolder(private var binding: GridViewItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieData: MovieResult.Movie) {
-            binding.movie = movieData
-            binding.executePendingBindings()
-        }
-    }
+	inner class MovieViewHolder(private var binding: GridViewItemBinding) :
+			RecyclerView.ViewHolder(binding.root) {
+		@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+		fun bind(movieData: MovieResult.Movie) {
+			binding.movie = movieData
+			val imgUrl = "https://image.tmdb.org/t/p/original" + movieData.posterPath
+			val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
 
-    class OnClickListener(val clickListener: (movieData: MovieResult.Movie) -> Unit) {
-        fun onClick(movieData: MovieResult.Movie) = clickListener(movieData)
-    }
+			Glide.with(context).asBitmap()
+					.load(imgUri)
+					.into(object : SimpleTarget<Bitmap>() {
+						@RequiresApi(Build.VERSION_CODES.M)
+						override fun onResourceReady(
+								resource: Bitmap,
+								transition: Transition<in Bitmap>?
+						) {
+							val palette = Palette.from(resource).generate()
+							palette.darkVibrantSwatch?.let {
+								binding.albumCard.setCardBackgroundColor(it.rgb)
+								val color = context.getColor(R.color.colorOnPrimary)
+								binding.albumName.setTextColor(color)
+							} ?: palette.lightVibrantSwatch?.let {
+								binding.albumCard.setCardBackgroundColor(it.rgb)
+							}
+						}
+					})
 
-    /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [MovieDetail]
-     * has been updated.
-     */
-    companion object DiffCallback : DiffUtil.ItemCallback<MovieResult.Movie>() {
-        override fun areItemsTheSame(oldItem: MovieResult.Movie, newItem: MovieResult.Movie): Boolean {
-            return oldItem === newItem
-        }
+			binding.albumCard.transitionName = movieData.id.toString()
 
-        override fun areContentsTheSame(oldItem: MovieResult.Movie, newItem: MovieResult.Movie): Boolean {
-            return oldItem.id == newItem.id
-        }
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
-    }
+			binding.executePendingBindings()
+		}
+	}
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movieData = getItem(position)
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(movieData)
-        }
-        holder.bind(movieData)
-    }
+	class OnClickListener(val clickListener: (movieData: MovieResult.Movie) -> Unit) {
+		fun onClick(movieData: MovieResult.Movie) = clickListener(movieData)
+	}
+
+	/**
+	 * Allows the RecyclerView to determine which items have changed when the [List] of [MovieDetail]
+	 * has been updated.
+	 */
+	companion object DiffCallback : DiffUtil.ItemCallback<MovieResult.Movie>() {
+		override fun areItemsTheSame(oldItem: MovieResult.Movie, newItem: MovieResult.Movie): Boolean {
+			return oldItem === newItem
+		}
+
+		override fun areContentsTheSame(oldItem: MovieResult.Movie, newItem: MovieResult.Movie): Boolean {
+			return oldItem.id == newItem.id
+		}
+	}
+
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+		return MovieViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+	}
+
+	@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+	override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+		val movieData = getItem(position)
+		holder.itemView.setOnClickListener {
+			onClickListener.onClick(movieData)
+		}
+		holder.bind(movieData)
+	}
 
 }

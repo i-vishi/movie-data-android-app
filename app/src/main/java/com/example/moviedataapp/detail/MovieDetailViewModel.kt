@@ -8,9 +8,7 @@ import com.example.moviedataapp.movies.IMDbApiStatus
 import com.example.moviedataapp.network.APIKEY
 import com.example.moviedataapp.network.IMDbApi
 import com.example.moviedataapp.network.MovieDetail
-import com.example.moviedataapp.network.MovieResult
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 private const val TAG = "MovieDetailViewModel"
 

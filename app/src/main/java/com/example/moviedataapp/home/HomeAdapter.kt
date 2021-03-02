@@ -10,9 +10,9 @@ import com.example.moviedataapp.R
 import com.example.moviedataapp.network.Topic
 
 class HomeAdapter(
-	private val context: Context,
-	private val dataset: List<Topic>,
-	val onClickListener: OnClickListener
+    private val context: Context,
+    private val dataset: List<Topic>,
+    private val onClickListener: OnClickListener
 ) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

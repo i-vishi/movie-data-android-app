@@ -1,32 +1,53 @@
 package com.example.moviedataapp.detail
 
-import androidx.lifecycle.ViewModelProvider
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
-import androidx.navigation.fragment.findNavController
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.lifecycle.ViewModelProvider
 import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.MovieDetailFragmentBinding
-import com.example.moviedataapp.movies.MoviesFragmentDirections
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.transition.MaterialContainerTransform
 
 class MovieDetailFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val application = requireNotNull(activity).application
-        val binding = MovieDetailFragmentBinding.inflate(inflater)
-        binding.lifecycleOwner = this
-        val movieId = MovieDetailFragmentArgs.fromBundle(requireArguments()).selectedMovieId
-        val viewModelFactory = MovieDetailViewModelFactory(movieId, application)
+	private lateinit var binding: MovieDetailFragmentBinding
 
-        binding.viewModel = ViewModelProvider(this, viewModelFactory).get(MovieDetailViewModel::class.java)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		sharedElementEnterTransition = buildContainerTransform()
+		sharedElementReturnTransition = buildContainerTransform()
+	}
 
-        return binding.root
-    }
+	@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+	override fun onCreateView(
+			inflater: LayoutInflater, container: ViewGroup?,
+			savedInstanceState: Bundle?
+	): View {
+		val application = requireNotNull(activity).application
+		binding = MovieDetailFragmentBinding.inflate(inflater)
+		binding.lifecycleOwner = this
+		val movieId = MovieDetailFragmentArgs.fromBundle(requireArguments()).selectedMovieId
+		binding.coordinator.transitionName = movieId.toString()
+		val viewModelFactory = MovieDetailViewModelFactory(movieId, application)
+
+		binding.viewModel = ViewModelProvider(this, viewModelFactory).get(MovieDetailViewModel::class.java)
+
+		return binding.root
+	}
+
+	private fun buildContainerTransform() =
+			MaterialContainerTransform().apply {
+				drawingViewId = R.id.nav_host_fragment
+				interpolator = FastOutSlowInInterpolator()
+				containerColor = MaterialColors.getColor(requireActivity().findViewById(android.R.id.content), R.attr.colorSurface)
+				fadeMode = MaterialContainerTransform.FADE_MODE_OUT
+				duration = 300
+			}
 
 }
