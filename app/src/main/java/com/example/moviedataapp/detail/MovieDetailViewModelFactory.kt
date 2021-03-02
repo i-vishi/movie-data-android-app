@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 class MovieDetailViewModelFactory(
-    private val movieId: Int,
+    private val movieId: Long,
     private val application: Application
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")

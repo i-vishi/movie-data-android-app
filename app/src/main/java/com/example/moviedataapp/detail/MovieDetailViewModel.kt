@@ -14,11 +14,11 @@ import java.lang.Exception
 
 private const val TAG = "MovieDetailViewModel"
 
-class MovieDetailViewModel(movieDataId: Int, application: Application) :
+class MovieDetailViewModel(movieDataId: Long, application: Application) :
 		AndroidViewModel(application) {
 
-	private val _selectedMovieId = MutableLiveData<Int>()
-	val selectedMovieId: LiveData<Int> get() = _selectedMovieId
+	private val _selectedMovieId = MutableLiveData<Long>()
+	val selectedMovieId: LiveData<Long> get() = _selectedMovieId
 
 	private val _status = MutableLiveData<IMDbApiStatus>()
 	val status: LiveData<IMDbApiStatus> get() = _status
@@ -53,7 +53,7 @@ class MovieDetailViewModel(movieDataId: Int, application: Application) :
 
 	val getRunningTime = Transformations.map(movieData) {
 		when (it?.runtime) {
-			0 -> "Running Time: NA"
+			0L -> "Running Time: NA"
 			else -> {
 				application.applicationContext.getString(
 						R.string.display_running_time,

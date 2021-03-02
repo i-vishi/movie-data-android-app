@@ -8,12 +8,12 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class MovieResult(
         val dates: Dates?,
-        val page: Int,
+        val page: Long,
         val results: List<Movie>,
         @Json(name = "total_pages")
-        val totalPages: Int,
+        val totalPages: Long,
         @Json(name = "total_results")
-        val totalResults: Int
+        val totalResults: Long
 ) : Parcelable {
 	@Parcelize
 	data class Dates(
@@ -27,8 +27,8 @@ data class MovieResult(
             @Json(name = "backdrop_path")
             val backdropPath: String?,
             @Json(name = "genre_ids")
-            val genreIds: List<Int>,
-            val id: Int,
+            val genreIds: List<Long>,
+            val id: Long,
             @Json(name = "original_language")
             val originalLanguage: String,
             @Json(name = "original_title")
@@ -44,7 +44,7 @@ data class MovieResult(
             @Json(name = "vote_average")
             val voteAverage: Double,
             @Json(name = "vote_count")
-            val voteCount: Int
+            val voteCount: Long
     ) : Parcelable
 }
 
@@ -58,10 +58,10 @@ data class MovieDetail(
 
         @Json(name = "belongs_to_collection")
         val belongsToCollection: @RawValue Any?,
-        val budget: Int,
+        val budget: Long,
         val genres: List<Genre>,
         val homepage: String?,
-        val id: Int,
+        val id: Long,
         @Json(name = "imdb_id")
         val imdbId: String?,
         @Json(name = "original_language")
@@ -78,8 +78,8 @@ data class MovieDetail(
         val productionCountries: List<ProductionCountry>,
         @Json(name = "release_date")
         val releaseDate: String,
-        val revenue: Int,
-        val runtime: Int?,
+        val revenue: Long,
+        val runtime: Long?,
         @Json(name = "spoken_languages")
         val spokenLanguages: List<SpokenLanguage>,
         val status: String,
@@ -89,17 +89,17 @@ data class MovieDetail(
         @Json(name = "vote_average")
         val voteAverage: Double,
         @Json(name = "vote_count")
-        val voteCount: Int
+        val voteCount: Long
 ) : Parcelable {
 	@Parcelize
 	data class Genre(
-            val id: Int,
+            val id: Long,
             val name: String
     ) : Parcelable
 
 	@Parcelize
 	data class ProductionCompany(
-            val id: Int,
+            val id: Long,
             @Json(name = "logo_path")
             val logoPath: String?,
             val name: String,

@@ -22,8 +22,8 @@ class MoviesViewModel(application: Application, apiString: String) :
 	private val _movies = MutableLiveData<List<MovieResult.Movie>>()
 	val movies: LiveData<List<MovieResult.Movie>> get() = _movies
 
-	private val _navigateToSelectedMovie = MutableLiveData<Int?>()
-	val navigateToSelectedMovie: LiveData<Int?> get() = _navigateToSelectedMovie
+	private val _navigateToSelectedMovie = MutableLiveData<Long?>()
+	val navigateToSelectedMovie: LiveData<Long?> get() = _navigateToSelectedMovie
 
 	private val _selectedApiString = MutableLiveData<String>()
 	val selectedApiString: LiveData<String> get() = _selectedApiString
@@ -50,7 +50,7 @@ class MoviesViewModel(application: Application, apiString: String) :
 		}
 	}
 
-	fun displayMovieDetails(movieId: Int) {
+	fun displayMovieDetails(movieId: Long) {
 		_navigateToSelectedMovie.value = movieId
 	}
 

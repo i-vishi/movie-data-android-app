@@ -27,7 +27,7 @@ interface IMDbApiService {
 	suspend fun getMovies(@Path(value = "criteria", encoded = true) criteria: String, @Query("api_key") api_key: String, @Query("region") region: String): MovieResult
 
 	@GET("{movieId}")
-	suspend fun getMovieDetails(@Path(value = "movieId", encoded = true) movieId: Int, @Query("api_key") api_key: String): MovieDetail
+	suspend fun getMovieDetails(@Path(value = "movieId", encoded = true) movieId: Long, @Query("api_key") api_key: String): MovieDetail
 }
 
 object IMDbApi {
