@@ -28,5 +28,6 @@
     <string name="tmdb_logo_description">The Movie DB Logo</string>
     <string name="close_dialog">Close</string>
     <string name="movie_transition_name">%s</string>
+    <string name="topic_name" />
 
 </resources>

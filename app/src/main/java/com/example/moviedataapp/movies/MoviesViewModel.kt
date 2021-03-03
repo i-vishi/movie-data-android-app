@@ -2,12 +2,14 @@ package com.example.moviedataapp.movies
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.moviedataapp.network.APIKEY
 import com.example.moviedataapp.network.IMDbApi
 import com.example.moviedataapp.network.MovieResult
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 enum class IMDbApiStatus { LOADING, ERROR, DONE }
 
@@ -56,5 +58,10 @@ class MoviesViewModel(application: Application, apiString: String) :
 
 	fun displayMovieDetailsComplete() {
 		_navigateToSelectedMovie.value = null
+	}
+
+	fun updateMovies(changedApiString: String) {
+		_selectedApiString.value = changedApiString
+		getMovies()
 	}
 }

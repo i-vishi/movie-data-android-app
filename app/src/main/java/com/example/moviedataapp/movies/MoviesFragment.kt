@@ -2,11 +2,8 @@ package com.example.moviedataapp.movies
 
 import android.app.Application
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -15,8 +12,8 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.FragmentMoviesBinding
-import kotlinx.android.synthetic.main.grid_view_item.view.*
-import kotlinx.android.synthetic.main.movie_detail_fragment.*
+import com.example.moviedataapp.network.MovieResult
+import com.google.android.material.card.MaterialCardView
 
 
 class MoviesFragment : Fragment() {
@@ -49,11 +46,12 @@ class MoviesFragment : Fragment() {
 	): View {
 
 		binding = FragmentMoviesBinding.inflate(inflater)
-		val arguments = MoviesFragmentArgs.fromBundle(requireArguments())
-		apiGetString = arguments.selectedTopicAPI
+		apiGetString = getString(R.string.apiTrending)
 
-		val activity = activity as AppCompatActivity
-		activity.supportActionBar?.title = getScreenTitle()
+//		val activity = activity as AppCompatActivity
+//		activity.supportActionBar?.title = getScreenTitle()
+
+		setHasOptionsMenu(true)
 
 		return binding.root
 	}
@@ -64,30 +62,71 @@ class MoviesFragment : Fragment() {
 		binding.lifecycleOwner = this
 		binding.viewModel = viewModel
 
-		binding.moviesPhotoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
-			viewModel.displayMovieDetails(it.id)
-		}, requireContext())
-		viewModel.navigateToSelectedMovie.observe(viewLifecycleOwner, {
-			if (null != it) {
-				val extras = FragmentNavigatorExtras(binding.moviesPhotoGrid.album_card to it.toString())
-				findNavController()
-						.navigate(MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(it), extras)
-				viewModel.displayMovieDetailsComplete()
+		viewModel.selectedApiString.observe(viewLifecycleOwner, {
+			binding.topicName.text = when (it) {
+				getString(R.string.apiComingSoon) -> getString(R.string.comingSoon)
+				getString(R.string.apiTopRated) -> getString(R.string.topRated)
+				getString(R.string.apiNowPlaying) -> getString(R.string.nowPlaying)
+				else -> getString(R.string.trending)
 			}
 		})
-	}
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
-			override fun handleOnBackPressed() {
-				this@MoviesFragment.findNavController().navigate(MoviesFragmentDirections.actionMoviesFragmentToHomeFragment())
+		val adapter = PhotoGridAdapter(requireContext())
+		adapter.onClickListener = object : PhotoGridAdapter.OnClickListener {
+			override fun onClick(movieData: MovieResult.Movie, cardView: MaterialCardView) {
+				viewModel.displayMovieDetails(movieData.id)
+				val extras = FragmentNavigatorExtras(cardView to movieData.id.toString())
+				findNavController()
+						.navigate(MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(movieData.id), extras)
+				viewModel.displayMovieDetailsComplete()
 			}
 		}
-		requireActivity().onBackPressedDispatcher.addCallback(this, callback)
 
+		binding.moviesPhotoGrid.adapter = adapter
+
+//		binding.moviesPhotoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
+//			viewModel.displayMovieDetails(it.id)
+//		}, requireContext())
+//		viewModel.navigateToSelectedMovie.observe(viewLifecycleOwner, {
+//			if (null != it) {
+//				val extras = FragmentNavigatorExtras(binding.moviesPhotoGrid.album_card to it.toString())
+//				findNavController()
+//						.navigate(MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(it), extras)
+//				viewModel.displayMovieDetailsComplete()
+//			}
+//		})
 	}
 
+//	override fun onCreate(savedInstanceState: Bundle?) {
+//		super.onCreate(savedInstanceState)
+//		val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+//			override fun handleOnBackPressed() {
+//				this@MoviesFragment.findNavController().navigate(MoviesFragmentDirections.actionMoviesFragmentToHomeFragment())
+//			}
+//		}
+//		requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//
+//	}
+
+	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+		inflater.inflate(R.menu.topic_menu, menu)
+		super.onCreateOptionsMenu(menu, inflater)
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		Log.d("topicOption", item.title.toString())
+
+		viewModel.updateMovies(
+				when (item.itemId) {
+					R.id.now_playing_menu -> getString(R.string.apiNowPlaying)
+					R.id.top_rated_menu -> getString(R.string.apiTopRated)
+					R.id.upcoming_menu -> getString(R.string.apiComingSoon)
+					else -> getString(R.string.apiTrending)
+				}
+		)
+
+		return true
+	}
 
 	private fun getScreenTitle(): String {
 		return when (apiGetString) {

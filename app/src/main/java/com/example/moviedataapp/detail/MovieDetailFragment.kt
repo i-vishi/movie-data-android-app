@@ -20,6 +20,7 @@ class MovieDetailFragment : Fragment() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
 		sharedElementEnterTransition = buildContainerTransform()
 		sharedElementReturnTransition = buildContainerTransform()
 	}
@@ -49,5 +50,4 @@ class MovieDetailFragment : Fragment() {
 				fadeMode = MaterialContainerTransform.FADE_MODE_OUT
 				duration = 300
 			}
-
 }

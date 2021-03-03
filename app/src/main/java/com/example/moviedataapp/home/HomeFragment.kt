@@ -2,10 +2,9 @@ package com.example.moviedataapp.home
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.FragmentHomeBinding
 import com.example.moviedataapp.network.TopicsData
@@ -36,12 +35,12 @@ class HomeFragment : Fragment() {
 
 		binding.topicList.adapter = adapter
 
-		homeViewModel.navigateToSelectedTopic.observe(viewLifecycleOwner, {
-            if (null != it) {
-                this.findNavController()
-                        .navigate(HomeFragmentDirections.actionHomeFragmentToMoviesFragment(it))
-            }
-        })
+//		homeViewModel.navigateToSelectedTopic.observe(viewLifecycleOwner, {
+//            if (null != it) {
+//                this.findNavController()
+//                        .navigate(HomeFragmentDirections.actionHomeFragmentToMoviesFragment(it))
+//            }
+//        })
 
 		setHasOptionsMenu(true)
 

@@ -3,32 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/moviesFragment">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.moviedataapp.home.HomeFragment"
-        android:label="Movie Data App"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_moviesFragment"
-            app:destination="@id/moviesFragment" />
-    </fragment>
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.example.moviedataapp.movies.MoviesFragment"
+        android:label="Movies Data App"
         tools:layout="@layout/fragment_movies">
-        <argument
-            android:name="selectedTopicAPI"
-            app:argType="string" />
         <action
             android:id="@+id/action_moviesFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
-        <action
-            android:id="@+id/action_moviesFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
@@ -38,6 +22,11 @@
         <argument
             android:name="selectedMovieId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_moviesFragment"
+            app:destination="@id/moviesFragment"
+            app:popUpTo="@id/moviesFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

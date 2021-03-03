@@ -18,9 +18,12 @@ import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.GridViewItemBinding
 import com.example.moviedataapp.network.MovieDetail
 import com.example.moviedataapp.network.MovieResult
+import com.google.android.material.card.MaterialCardView
 
-class PhotoGridAdapter(private val onClickListener: OnClickListener, private val context: Context) :
+class PhotoGridAdapter(private val context: Context) :
 		ListAdapter<MovieResult.Movie, PhotoGridAdapter.MovieViewHolder>(DiffCallback) {
+
+	lateinit var onClickListener: OnClickListener
 
 	inner class MovieViewHolder(private var binding: GridViewItemBinding) :
 			RecyclerView.ViewHolder(binding.root) {
@@ -50,14 +53,16 @@ class PhotoGridAdapter(private val onClickListener: OnClickListener, private val
 					})
 
 			binding.albumCard.transitionName = movieData.id.toString()
-
+			binding.albumCard.setOnClickListener {
+				onClickListener.onClick(movieData, binding.albumCard)
+			}
 
 			binding.executePendingBindings()
 		}
 	}
 
-	class OnClickListener(val clickListener: (movieData: MovieResult.Movie) -> Unit) {
-		fun onClick(movieData: MovieResult.Movie) = clickListener(movieData)
+	interface OnClickListener {
+		fun onClick(movieData: MovieResult.Movie, cardView: MaterialCardView)
 	}
 
 	/**
@@ -81,9 +86,6 @@ class PhotoGridAdapter(private val onClickListener: OnClickListener, private val
 	@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 	override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 		val movieData = getItem(position)
-		holder.itemView.setOnClickListener {
-			onClickListener.onClick(movieData)
-		}
 		holder.bind(movieData)
 	}
 

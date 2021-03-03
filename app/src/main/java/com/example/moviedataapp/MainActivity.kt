@@ -1,12 +1,12 @@
 package com.example.moviedataapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.moviedataapp.movies.MoviesFragmentDirections
+import com.example.moviedataapp.detail.MovieDetailFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,13 +21,12 @@ class MainActivity : AppCompatActivity() {
 
 		setupActionBarWithNavController(navController)
 
-
 	}
 
 	override fun onSupportNavigateUp(): Boolean {
 		return when(navController.currentDestination?.id) {
-			R.id.moviesFragment -> {
-				this.findNavController(R.id.nav_host_fragment).navigate(MoviesFragmentDirections.actionMoviesFragmentToHomeFragment())
+			R.id.movieDetailFragment -> {
+				this.findNavController(R.id.nav_host_fragment).navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToMoviesFragment())
 				true
 			}
 			else -> navController.navigateUp() || super.onSupportNavigateUp()
