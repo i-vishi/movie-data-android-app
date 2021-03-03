@@ -85,6 +85,6 @@ class MovieDetailViewModel(movieDataId: Long, application: Application) :
 	}
 
 	val getLanguage = Transformations.map(movieData) {
-		Locale(it?.originalLanguage).displayLanguage
+		Locale(it?.originalLanguage!!).displayLanguage
 	}
 }
