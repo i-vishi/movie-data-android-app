@@ -9,6 +9,7 @@ import com.example.moviedataapp.network.APIKEY
 import com.example.moviedataapp.network.IMDbApi
 import com.example.moviedataapp.network.MovieDetail
 import kotlinx.coroutines.launch
+import java.util.*
 
 private const val TAG = "MovieDetailViewModel"
 
@@ -60,5 +61,30 @@ class MovieDetailViewModel(movieDataId: Long, application: Application) :
 			}
 		}
 
+	}
+
+	val getBudget = Transformations.map(movieData) {
+		when (it?.budget) {
+			0L -> "NA"
+			else -> application.applicationContext.getString(R.string.movie_budget_display, it?.budget)
+		}
+	}
+
+	val getRevenue = Transformations.map(movieData) {
+		when (it?.revenue) {
+			0L -> "NA"
+			else -> application.applicationContext.getString(R.string.movie_revenue_display, it?.revenue)
+		}
+	}
+
+	val getGenres = Transformations.map(movieData) {
+		when (it?.genres?.size) {
+			0 -> "Genre: To be Declared"
+			else -> it?.genres?.joinToString { genre -> genre.name }
+		}
+	}
+
+	val getLanguage = Transformations.map(movieData) {
+		Locale(it?.originalLanguage).displayLanguage
 	}
 }

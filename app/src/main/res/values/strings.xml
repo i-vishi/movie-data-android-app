@@ -29,5 +29,12 @@
     <string name="close_dialog">Close</string>
     <string name="movie_transition_name">%s</string>
     <string name="topic_name" />
+    <string name="movie_overview_label">Overview</string>
+    <string name="movie_status_label">Status</string>
+    <string name="movie_lang_label">Original Language</string>
+    <string name="movie_budget_label">Budget</string>
+    <string name="movie_revenue_label">Revenue</string>
+    <string name="movie_budget_display">$%,d</string>
+    <string name="movie_revenue_display">$%,d</string>
 
 </resources>

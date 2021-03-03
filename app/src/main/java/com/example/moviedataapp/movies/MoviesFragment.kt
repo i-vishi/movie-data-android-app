@@ -77,7 +77,7 @@ class MoviesFragment : Fragment() {
 				viewModel.displayMovieDetails(movieData.id)
 				val extras = FragmentNavigatorExtras(cardView to movieData.id.toString())
 				findNavController()
-						.navigate(MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(movieData.id), extras)
+						.navigate(MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(movieData.id, cardView.cardBackgroundColor.defaultColor), extras)
 				viewModel.displayMovieDetailsComplete()
 			}
 		}

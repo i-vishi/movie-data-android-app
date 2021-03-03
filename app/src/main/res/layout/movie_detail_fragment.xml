@@ -26,6 +26,7 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="580dp"
+                android:background="?attr/colorSecondaryVariant"
                 app:collapsedTitleGravity="center"
                 app:collapsedTitleTextAppearance="?attr/textAppearanceHeadline6"
                 app:expandedTitleTextAppearance="?attr/textAppearanceHeadline5"
@@ -38,13 +39,13 @@
                     android:layout_height="?actionBarSize" />
 
                 <ImageView
+                    android:id="@+id/movie_detail_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/movie_detail_image"
                     android:layout_marginBottom="81dp"
+                    android:contentDescription="@string/movie_image_description"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{`https://image.tmdb.org/t/p/original`+viewModel.movieData.posterPath}"
-                    android:contentDescription="@string/movie_image_description" />
+                    app:imageUrl="@{`https://image.tmdb.org/t/p/original`+viewModel.movieData.posterPath}" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -57,7 +58,9 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +69,7 @@
 
                 <TextView
                     android:id="@+id/movie_year"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@{viewModel.getReleaseDate}"
@@ -76,7 +79,7 @@
 
                 <TextView
                     android:id="@+id/movie_running_time"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
@@ -88,19 +91,155 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/movie_overview"
-                android:layout_width="match_parent"
+                android:id="@+id/movie_genres"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:text="@{viewModel.getGenres}"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                tools:text="Family, Adventure, Drama" />
+
+            <TextView
+                android:id="@+id/movie_overview_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/movie_overview_label"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_genres" />
+
+            <TextView
+                android:id="@+id/movie_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
                 android:text="@{viewModel.movieData.overview}"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_overview_label"
+                tools:text="@string/movie_overview_text" />
+
+            <TextView
+                android:id="@+id/movie_status_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/movie_status_label"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_overview" />
+
+            <TextView
+                android:id="@+id/movie_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{viewModel.movieData.status}"
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@id/movie_status_label"
                 tools:text="@string/movie_overview_text" />
+
+            <TextView
+                android:id="@+id/movie_lang_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/movie_lang_label"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_status" />
+
+            <TextView
+                android:id="@+id/movie_lang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{viewModel.getLanguage}"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_lang_label"
+                tools:text="@string/movie_overview_text" />
+
+            <TextView
+                android:id="@+id/movie_budget_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/movie_budget_label"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_lang" />
+
+            <TextView
+                android:id="@+id/movie_budget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{viewModel.getBudget}"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_budget_label"
+                tools:text="@string/movie_overview_text" />
+
+            <TextView
+                android:id="@+id/movie_revenue_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/movie_revenue_label"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_budget" />
+
+            <TextView
+                android:id="@+id/movie_revenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{viewModel.getRevenue}"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_revenue_label"
+                tools:text="@string/movie_overview_text" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

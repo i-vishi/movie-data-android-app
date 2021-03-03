@@ -1,5 +1,6 @@
 package com.example.moviedataapp.detail
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,7 +35,12 @@ class MovieDetailFragment : Fragment() {
 		binding = MovieDetailFragmentBinding.inflate(inflater)
 		binding.lifecycleOwner = this
 		val movieId = MovieDetailFragmentArgs.fromBundle(requireArguments()).selectedMovieId
+		val barColor = MovieDetailFragmentArgs.fromBundle(requireArguments()).barColor
 		binding.coordinator.transitionName = movieId.toString()
+		val color = Color.WHITE
+		binding.collapsingToolbar.setCollapsedTitleTextColor(color)
+		binding.collapsingToolbar.setExpandedTitleColor(color)
+		binding.collapsingToolbar.setBackgroundColor(barColor)
 		val viewModelFactory = MovieDetailViewModelFactory(movieId, application)
 
 		binding.viewModel = ViewModelProvider(this, viewModelFactory).get(MovieDetailViewModel::class.java)
