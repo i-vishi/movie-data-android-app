@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
         android:id="@+id/topicGroup"
@@ -7,15 +8,19 @@
         <item
             android:id="@+id/trending_menu"
             android:checked="true"
+            android:icon="@drawable/ic_whatshot_24"
             android:title="@string/trending" />
         <item
             android:id="@+id/top_rated_menu"
+            android:icon="@drawable/ic_stars_24"
             android:title="@string/topRated" />
         <item
             android:id="@+id/now_playing_menu"
+            android:icon="@drawable/ic_play_circle_outline_24"
             android:title="@string/nowPlaying" />
         <item
             android:id="@+id/upcoming_menu"
+            android:icon="@drawable/ic_av_timer_24"
             android:title="@string/comingSoon" />
     </group>
 </menu>
