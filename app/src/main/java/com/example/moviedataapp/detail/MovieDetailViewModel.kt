@@ -2,7 +2,6 @@ package com.example.moviedataapp.detail
 
 import android.app.Application
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.example.moviedataapp.R
@@ -38,14 +37,11 @@ class MovieDetailViewModel(movieDataId: Long, application: Application) :
 		viewModelScope.launch {
 			_status.value = IMDbApiStatus.LOADING
 			try {
-				Log.d(TAG, "id is ${_selectedMovieId.value.toString()}")
 				_movieData.value = IMDbApi.retrofitService.getMovieDetails(_selectedMovieId.value!!, APIKEY)
-				Log.d(TAG, _movieData.value.toString())
 				_status.value = IMDbApiStatus.DONE
 			} catch (e: Exception) {
 				_status.value = IMDbApiStatus.ERROR
 				_movieData.value = null
-				Log.d(TAG, status.value.toString() + "  $e")
 			}
 		}
 	}
@@ -61,10 +57,11 @@ class MovieDetailViewModel(movieDataId: Long, application: Application) :
 		when (it?.runtime) {
 			0L -> "Running Time: NA"
 			else -> {
-				application.applicationContext.getString(
-						R.string.display_running_time,
-						it?.runtime
-				)
+
+				val hr = it?.runtime?.div(60)
+				val min = it?.runtime?.rem(60)
+
+				application.applicationContext.getString(R.string.display_running_time, hr, min)
 			}
 		}
 

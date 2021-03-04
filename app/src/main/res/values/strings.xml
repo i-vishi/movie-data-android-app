@@ -19,7 +19,7 @@
     <string name="movie_release_year">Release Year: 2021</string>
     <string name="movie_running_time">Running Time: 120 Minutes</string>
     <string name="display_release_year">%s</string>
-    <string name="display_running_time">%d minutes</string>
+    <string name="display_running_time">%dh %dm</string>
     <string name="image_path">https://image.tmdb.org/t/p/original%s</string>
     <string name="movie_overview_text">some random text</string>
     <string name="menu_about">About</string>

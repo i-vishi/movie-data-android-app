@@ -2,7 +2,6 @@ package com.example.moviedataapp.movies
 
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,8 +56,6 @@ class MoviesFragment : Fragment() {
 		}
 
 		binding.navigationView.setNavigationItemSelectedListener { menuItem ->
-
-			Log.d("NAVDRAWER", menuItem.toString())
 			if (menuItem.groupId == R.id.topicGroup) {
 				viewModel.updateMovies(
 						when (menuItem.itemId) {
@@ -103,7 +100,6 @@ class MoviesFragment : Fragment() {
 		adapter.onClickListener = object : PhotoGridAdapter.OnClickListener {
 			override fun onClick(movieData: MovieResult.Movie, cardView: MaterialCardView, textView: MaterialTextView) {
 				viewModel.displayMovieDetails(movieData.id)
-				Log.d("TAGTAGTAG", textView.textColors.toString())
 				val extras = FragmentNavigatorExtras(cardView to movieData.id.toString())
 				val action = MoviesFragmentDirections
 						.actionMoviesFragmentToMovieDetailFragment(movieData.id, cardView.cardBackgroundColor.defaultColor, textView.textColors.defaultColor)
