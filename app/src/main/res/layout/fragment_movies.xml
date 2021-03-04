@@ -98,22 +98,6 @@
                     tools:itemCount="16"
                     tools:listitem="@layout/grid_view_item" />
 
-                <!--        <TextView-->
-                <!--            android:id="@+id/loading_text"-->
-                <!--            android:layout_width="match_parent"-->
-                <!--            android:layout_height="match_parent"-->
-                <!--            android:gravity="center"-->
-                <!--            android:text="@string/text_loading_text"-->
-                <!--            android:textAlignment="center"-->
-                <!--            android:textAppearance="@style/TextAppearance.AppCompat.Display2"-->
-                <!--            android:textStyle="bold"-->
-                <!--            android:typeface="sans"-->
-                <!--            app:imdbApiStatus="@{viewModel.status}"-->
-                <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--            app:layout_constraintEnd_toEndOf="parent"-->
-                <!--            app:layout_constraintStart_toStartOf="parent"-->
-                <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

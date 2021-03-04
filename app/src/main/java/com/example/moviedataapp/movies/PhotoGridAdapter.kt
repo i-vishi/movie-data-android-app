@@ -19,6 +19,8 @@ import com.example.moviedataapp.databinding.GridViewItemBinding
 import com.example.moviedataapp.network.MovieDetail
 import com.example.moviedataapp.network.MovieResult
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.textview.MaterialTextView
+import java.time.LocalDate
 
 class PhotoGridAdapter(private val context: Context) :
 		ListAdapter<MovieResult.Movie, PhotoGridAdapter.MovieViewHolder>(DiffCallback) {
@@ -43,26 +45,34 @@ class PhotoGridAdapter(private val context: Context) :
 						) {
 							val palette = Palette.from(resource).generate()
 							palette.darkVibrantSwatch?.let {
-								binding.albumCard.setCardBackgroundColor(it.rgb)
+								binding.movieCard.setCardBackgroundColor(it.rgb)
 								val color = context.getColor(R.color.colorOnPrimary)
-								binding.albumName.setTextColor(color)
+								binding.movieName.setTextColor(color)
 							} ?: palette.lightVibrantSwatch?.let {
-								binding.albumCard.setCardBackgroundColor(it.rgb)
+								binding.movieCard.setCardBackgroundColor(it.rgb)
 							}
 						}
 					})
 
-			binding.albumCard.transitionName = movieData.id.toString()
-			binding.albumCard.setOnClickListener {
-				onClickListener.onClick(movieData, binding.albumCard)
+			binding.movieCard.transitionName = movieData.id.toString()
+			binding.movieCard.setOnClickListener {
+				onClickListener.onClick(movieData, binding.movieCard, binding.movieName)
 			}
+
+			val yearString = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				LocalDate.parse(movieData.releaseDate).year.toString()
+			} else {
+				""
+			}
+
+			binding.movieName.text = context.getString(R.string.grid_movie_title, movieData.title, yearString)
 
 			binding.executePendingBindings()
 		}
 	}
 
 	interface OnClickListener {
-		fun onClick(movieData: MovieResult.Movie, cardView: MaterialCardView)
+		fun onClick(movieData: MovieResult.Movie, cardView: MaterialCardView, textView: MaterialTextView)
 	}
 
 	/**

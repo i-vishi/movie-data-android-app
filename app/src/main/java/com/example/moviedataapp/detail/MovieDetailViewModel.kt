@@ -1,7 +1,9 @@
 package com.example.moviedataapp.detail
 
 import android.app.Application
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.example.moviedataapp.R
 import com.example.moviedataapp.movies.IMDbApiStatus
@@ -9,6 +11,8 @@ import com.example.moviedataapp.network.APIKEY
 import com.example.moviedataapp.network.IMDbApi
 import com.example.moviedataapp.network.MovieDetail
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 private const val TAG = "MovieDetailViewModel"
@@ -46,8 +50,11 @@ class MovieDetailViewModel(movieDataId: Long, application: Application) :
 		}
 	}
 
+	@RequiresApi(Build.VERSION_CODES.O)
 	val getReleaseDate = Transformations.map(movieData) {
-		application.applicationContext.getString(R.string.display_release_year, it?.releaseDate)
+		val formatter = DateTimeFormatter.ofPattern("LLLL dd, yyyy")
+		val st = LocalDate.parse(it?.releaseDate).format(formatter)
+		application.applicationContext.getString(R.string.display_release_year, st)
 	}
 
 	val getRunningTime = Transformations.map(movieData) {

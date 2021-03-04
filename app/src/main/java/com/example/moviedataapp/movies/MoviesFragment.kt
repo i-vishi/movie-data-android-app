@@ -2,6 +2,7 @@ package com.example.moviedataapp.movies
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +14,10 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.FragmentMoviesBinding
+import com.example.moviedataapp.home.AboutDialogFragment
 import com.example.moviedataapp.network.MovieResult
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.textview.MaterialTextView
 
 
 class MoviesFragment : Fragment() {
@@ -55,15 +58,20 @@ class MoviesFragment : Fragment() {
 
 		binding.navigationView.setNavigationItemSelectedListener { menuItem ->
 
-			viewModel.updateMovies(
-					when (menuItem.itemId) {
-						R.id.now_playing_menu -> getString(R.string.apiNowPlaying)
-						R.id.top_rated_menu -> getString(R.string.apiTopRated)
-						R.id.upcoming_menu -> getString(R.string.apiComingSoon)
-						else -> getString(R.string.apiTrending)
-					}
-			)
-			menuItem.isChecked = true
+			Log.d("NAVDRAWER", menuItem.toString())
+			if (menuItem.groupId == R.id.topicGroup) {
+				viewModel.updateMovies(
+						when (menuItem.itemId) {
+							R.id.now_playing_menu -> getString(R.string.apiNowPlaying)
+							R.id.top_rated_menu -> getString(R.string.apiTopRated)
+							R.id.upcoming_menu -> getString(R.string.apiComingSoon)
+							else -> getString(R.string.apiTrending)
+						}
+				)
+				menuItem.isChecked = true
+			} else {
+				showAbout()
+			}
 			binding.drawerLayout.close()
 			true
 		}
@@ -93,28 +101,19 @@ class MoviesFragment : Fragment() {
 
 		val adapter = PhotoGridAdapter(requireContext())
 		adapter.onClickListener = object : PhotoGridAdapter.OnClickListener {
-			override fun onClick(movieData: MovieResult.Movie, cardView: MaterialCardView) {
+			override fun onClick(movieData: MovieResult.Movie, cardView: MaterialCardView, textView: MaterialTextView) {
 				viewModel.displayMovieDetails(movieData.id)
+				Log.d("TAGTAGTAG", textView.textColors.toString())
 				val extras = FragmentNavigatorExtras(cardView to movieData.id.toString())
+				val action = MoviesFragmentDirections
+						.actionMoviesFragmentToMovieDetailFragment(movieData.id, cardView.cardBackgroundColor.defaultColor, textView.textColors.defaultColor)
 				findNavController()
-						.navigate(MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(movieData.id, cardView.cardBackgroundColor.defaultColor), extras)
+						.navigate(action, extras)
 				viewModel.displayMovieDetailsComplete()
 			}
 		}
 
 		binding.moviesPhotoGrid.adapter = adapter
-
-//		binding.moviesPhotoGrid.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
-//			viewModel.displayMovieDetails(it.id)
-//		}, requireContext())
-//		viewModel.navigateToSelectedMovie.observe(viewLifecycleOwner, {
-//			if (null != it) {
-//				val extras = FragmentNavigatorExtras(binding.moviesPhotoGrid.album_card to it.toString())
-//				findNavController()
-//						.navigate(MoviesFragmentDirections.actionMoviesFragmentToMovieDetailFragment(it), extras)
-//				viewModel.displayMovieDetailsComplete()
-//			}
-//		})
 	}
 
 //	override fun onCreate(savedInstanceState: Bundle?) {
@@ -148,12 +147,17 @@ class MoviesFragment : Fragment() {
 //		return true
 //	}
 
-	private fun getScreenTitle(): String {
-		return when (apiGetString) {
-			context?.getString(R.string.apiTrending) -> requireContext().getString(R.string.trending)
-			context?.getString(R.string.apiComingSoon) -> requireContext().getString(R.string.comingSoon)
-			context?.getString(R.string.apiTopRated) -> requireContext().getString(R.string.topRated)
-			else -> requireContext().getString(R.string.app_name)
-		}
+//	private fun getScreenTitle(): String {
+//		return when (apiGetString) {
+//			context?.getString(R.string.apiTrending) -> requireContext().getString(R.string.trending)
+//			context?.getString(R.string.apiComingSoon) -> requireContext().getString(R.string.comingSoon)
+//			context?.getString(R.string.apiTopRated) -> requireContext().getString(R.string.topRated)
+//			else -> requireContext().getString(R.string.app_name)
+//		}
+//	}
+
+	private fun showAbout() {
+		val aboutFragment = AboutDialogFragment()
+		aboutFragment.show(childFragmentManager, AboutDialogFragment.TAG)
 	}
 }

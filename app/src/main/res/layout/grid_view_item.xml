@@ -16,7 +16,7 @@
         android:padding="2dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/album_card"
+            android:id="@+id/movie_card"
             android:layout_width="200dp"
             android:layout_height="250dp"
             android:layout_gravity="center"
@@ -39,7 +39,7 @@
                     app:shapeAppearance="@style/ShapeAppearance.MovieImageView" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/album_name"
+                    android:id="@+id/movie_name"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_gravity="bottom"
@@ -48,22 +48,10 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:text="@{movie.title}"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?attr/colorOnSurface"
                     tools:text="Movie Name" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </FrameLayout>
-
-    <!--    <ImageView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="180dp"-->
-    <!--        android:adjustViewBounds="true"-->
-    <!--        android:contentDescription="@string/movie_image_description"-->
-    <!--        android:padding="2dp"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        android:transitionName="@{`movie_`+movie.id}"-->
-    <!--      -->
-    <!--        tools:src="@tools:sample/backgrounds/scenic" />-->
 </layout>

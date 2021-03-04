@@ -1,7 +1,6 @@
 package com.example.moviedataapp.movies
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -39,15 +38,12 @@ class MoviesViewModel(application: Application, apiString: String) :
 		viewModelScope.launch {
 			_status.value = IMDbApiStatus.LOADING
 			try {
-				val res = IMDbApi.retrofitService.getMovies(selectedApiString.value!!, APIKEY, "IN")
-				Log.d(TAG, res.toString())
+				val res = IMDbApi.retrofitService.getMovies(selectedApiString.value!!, APIKEY, "US")
 				_movies.value = res.results
 				_status.value = IMDbApiStatus.DONE
-				Log.d(TAG, status.value.toString())
 			} catch (e: Exception) {
 				_status.value = IMDbApiStatus.ERROR
 				_movies.value = ArrayList()
-				Log.d(TAG, status.value.toString() + " $e")
 			}
 		}
 	}

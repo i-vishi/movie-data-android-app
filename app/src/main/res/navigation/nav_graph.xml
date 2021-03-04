@@ -25,6 +25,9 @@
         <argument
             android:name="barColor"
             app:argType="integer" />
+        <argument
+            android:name="textColor"
+            app:argType="integer" />
         <action
             android:id="@+id/action_movieDetailFragment_to_moviesFragment"
             app:destination="@id/moviesFragment"

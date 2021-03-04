@@ -36,5 +36,6 @@
     <string name="movie_revenue_label">Revenue</string>
     <string name="movie_budget_display">$%,d</string>
     <string name="movie_revenue_display">$%,d</string>
+    <string name="grid_movie_title">%s (%s)</string>
 
 </resources>
