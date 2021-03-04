@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/topicGroup"
+        android:checkableBehavior="single" >
+        <item
+            android:id="@+id/trending_menu"
+            android:checked="true"
+            android:title="@string/trending" />
+        <item
+            android:id="@+id/top_rated_menu"
+            android:title="@string/topRated" />
+        <item
+            android:id="@+id/now_playing_menu"
+            android:title="@string/nowPlaying" />
+        <item
+            android:id="@+id/upcoming_menu"
+            android:title="@string/comingSoon" />
+    </group>
+</menu>

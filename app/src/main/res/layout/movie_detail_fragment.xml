@@ -15,18 +15,20 @@
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".music.MovieFragment">
+        tools:context=".detail.MovieDetailFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
+            style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
                 android:layout_width="match_parent"
-                android:layout_height="580dp"
+                android:layout_height="600dp"
                 android:background="?attr/colorSecondaryVariant"
+                android:fitsSystemWindows="true"
                 app:collapsedTitleGravity="center"
                 app:collapsedTitleTextAppearance="?attr/textAppearanceHeadline6"
                 app:expandedTitleTextAppearance="?attr/textAppearanceHeadline5"

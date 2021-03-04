@@ -10,77 +10,120 @@
             type="com.example.moviedataapp.movies.MoviesViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.moviedataapp.movies.MoviesFragment">
+        tools:openDrawer="start">
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progress_horizontal"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:imdbApiStatus="@{viewModel.status}"
-            app:indeterminateAnimationType="disjoint"
-            app:indicatorColor="@android:color/holo_orange_dark"
-            app:indicatorDirectionLinear="leftToRight"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showAnimationBehavior="outward"
-            app:trackColor="@android:color/holo_red_light"
-            app:trackThickness="6dp" />
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.AppBarLayout
+                style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp"
+                    app:navigationIcon="@drawable/ic_menu_24dp"
+                    app:title="@string/app_name" />
+
+            </com.google.android.material.appbar.AppBarLayout>
 
 
-        <TextView
-            android:id="@+id/topicName"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.example.moviedataapp.movies.MoviesFragment"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progress_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:imdbApiStatus="@{viewModel.status}"
+                    app:indeterminateAnimationType="disjoint"
+                    app:indicatorColor="@android:color/holo_orange_dark"
+                    app:indicatorDirectionLinear="leftToRight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:showAnimationBehavior="outward"
+                    app:trackColor="@android:color/holo_red_light"
+                    app:trackThickness="6dp" />
+
+
+                <TextView
+                    android:id="@+id/topicName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/topic_name"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Overline"
+                    android:textSize="28sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/progress_horizontal"
+                    tools:text="Now Playing Movies" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/movies_photo_grid"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:clipToPadding="false"
+                    android:padding="6dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/topicName"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:listData="@{viewModel.movies}"
+                    app:spanCount="2"
+                    tools:itemCount="16"
+                    tools:listitem="@layout/grid_view_item" />
+
+                <!--        <TextView-->
+                <!--            android:id="@+id/loading_text"-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="match_parent"-->
+                <!--            android:gravity="center"-->
+                <!--            android:text="@string/text_loading_text"-->
+                <!--            android:textAlignment="center"-->
+                <!--            android:textAppearance="@style/TextAppearance.AppCompat.Display2"-->
+                <!--            android:textStyle="bold"-->
+                <!--            android:typeface="sans"-->
+                <!--            app:imdbApiStatus="@{viewModel.status}"-->
+                <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--            app:layout_constraintEnd_toEndOf="parent"-->
+                <!--            app:layout_constraintStart_toStartOf="parent"-->
+                <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/topic_name"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Overline"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="match_parent"
+            app:headerLayout="@layout/header_navigation_drawer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress_horizontal"
-            tools:text="Now Playing Movies" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/movies_photo_grid"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:clipToPadding="false"
-            android:padding="6dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topicName"
-            app:layout_constraintVertical_bias="0.0"
-            app:listData="@{viewModel.movies}"
-            app:spanCount="2"
-            tools:itemCount="16"
-            tools:listitem="@layout/grid_view_item" />
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/loading_text"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:gravity="center"-->
-        <!--            android:text="@string/text_loading_text"-->
-        <!--            android:textAlignment="center"-->
-        <!--            android:textAppearance="@style/TextAppearance.AppCompat.Display2"-->
-        <!--            android:textStyle="bold"-->
-        <!--            android:typeface="sans"-->
-        <!--            app:imdbApiStatus="@{viewModel.status}"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_gravity="start"
+            app:menu="@menu/nav_drawer_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

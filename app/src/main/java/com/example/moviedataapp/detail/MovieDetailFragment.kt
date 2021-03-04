@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,7 @@ import com.example.moviedataapp.R
 import com.example.moviedataapp.databinding.MovieDetailFragmentBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
+import kotlinx.android.synthetic.main.movie_detail_fragment.*
 
 class MovieDetailFragment : Fragment() {
 
@@ -21,6 +23,8 @@ class MovieDetailFragment : Fragment() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+
+		(activity as AppCompatActivity).setSupportActionBar(toolbar)
 
 		sharedElementEnterTransition = buildContainerTransform()
 		sharedElementReturnTransition = buildContainerTransform()

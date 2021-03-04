@@ -14,7 +14,14 @@
         <!-- Card Styles -->
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MediumComponent</item>
         <!-- Customize your theme here. -->
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+
     </style>
+
+
 
 
     <style name="TextAppearance.MdcTypographyStyles.Headline1" parent="TextAppearance.MaterialComponents.Headline1">

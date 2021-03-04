@@ -2,8 +2,9 @@ package com.example.moviedataapp.movies
 
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -48,10 +49,29 @@ class MoviesFragment : Fragment() {
 		binding = FragmentMoviesBinding.inflate(inflater)
 		apiGetString = getString(R.string.apiTrending)
 
+		binding.topAppBar.setNavigationOnClickListener {
+			binding.drawerLayout.open()
+		}
+
+		binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+
+			viewModel.updateMovies(
+					when (menuItem.itemId) {
+						R.id.now_playing_menu -> getString(R.string.apiNowPlaying)
+						R.id.top_rated_menu -> getString(R.string.apiTopRated)
+						R.id.upcoming_menu -> getString(R.string.apiComingSoon)
+						else -> getString(R.string.apiTrending)
+					}
+			)
+			menuItem.isChecked = true
+			binding.drawerLayout.close()
+			true
+		}
+
 //		val activity = activity as AppCompatActivity
 //		activity.supportActionBar?.title = getScreenTitle()
 
-		setHasOptionsMenu(true)
+//		setHasOptionsMenu(true)
 
 		return binding.root
 	}
@@ -108,25 +128,25 @@ class MoviesFragment : Fragment() {
 //
 //	}
 
-	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-		inflater.inflate(R.menu.topic_menu, menu)
-		super.onCreateOptionsMenu(menu, inflater)
-	}
-
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		Log.d("topicOption", item.title.toString())
-
-		viewModel.updateMovies(
-				when (item.itemId) {
-					R.id.now_playing_menu -> getString(R.string.apiNowPlaying)
-					R.id.top_rated_menu -> getString(R.string.apiTopRated)
-					R.id.upcoming_menu -> getString(R.string.apiComingSoon)
-					else -> getString(R.string.apiTrending)
-				}
-		)
-
-		return true
-	}
+//	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//		inflater.inflate(R.menu.topic_menu, menu)
+//		super.onCreateOptionsMenu(menu, inflater)
+//	}
+//
+//	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//		Log.d("topicOption", item.title.toString())
+//
+//		viewModel.updateMovies(
+//				when (item.itemId) {
+//					R.id.now_playing_menu -> getString(R.string.apiNowPlaying)
+//					R.id.top_rated_menu -> getString(R.string.apiTopRated)
+//					R.id.upcoming_menu -> getString(R.string.apiComingSoon)
+//					else -> getString(R.string.apiTrending)
+//				}
+//		)
+//
+//		return true
+//	}
 
 	private fun getScreenTitle(): String {
 		return when (apiGetString) {
