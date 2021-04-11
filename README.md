@@ -19,7 +19,7 @@ An android application written in Kotlin to get details of movies
 - Used Recyclerview with Grid Layout to show movies in the form of grids.
 - Glide is used to load image.
 - Used Data binding and view binding.
-- Used material transition to view a movie.
+- Used material transition to load a movie.
 
 
 ## Built with
