@@ -4,13 +4,13 @@ An android application written in Kotlin to get details of movies
 
 ## Snapshots
 
-|           Home          |       Side Navigation        |       About Dialog       |
-| :---------------------: | :--------------------------: | :-----------------------:|
-| ![](snapshots/home.png) | ![](snapshots/navDrawer.png) | ![](snapshots/about.png) |
+|           Home          |       Side Navigation        |       Home - Upcoming Movies     |
+| :---------------------: | :--------------------------: | :-------------------------------:|
+| ![](snapshots/home.png) | ![](snapshots/navDrawer.png) | ![](snapshots/home-upcoming.png) |
 
-|           Movie          |           Movie Detail          |
-| :----------------------: | :-----------------------------: |
-| ![](snapshots/movie.png) | ![](snapshots/movie-detail.png) |
+|           Movie          |           Movie Detail          |       About Dialog       |
+| :----------------------: | :-----------------------------: | :-----------------------:|
+| ![](snapshots/movie.png) | ![](snapshots/movie-detail.png) | ![](snapshots/about.png) |
 
 
 ## Overview
